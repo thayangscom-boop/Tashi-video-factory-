@@ -1,0 +1,1 @@
+{ "name": "toons-engine", "private": true, "dependencies": { "three": "0.164.1", "postprocessing": "6.36.0", "esbuild": "0.28.2" } }

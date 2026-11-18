@@ -1,0 +1,9 @@
+numpy
+scipy
+soundfile
+pillow
+opencv-python-headless
+skia-python
+faster-whisper
+playwright
+pocket-tts
