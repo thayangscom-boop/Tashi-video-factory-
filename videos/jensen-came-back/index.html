@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:DM;src:url(assets/fonts/jetbrains-mono-latin-800-normal.woff2);font-weight:800}
+@font-face{font-family:Mono;src:url(assets/fonts/jetbrains-mono-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:Mono;src:url(assets/fonts/jetbrains-mono-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:Inter;src:url(assets/fonts/inter-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:Inter;src:url(assets/fonts/inter-latin-600-normal.woff2);font-weight:600}
+@font-face{font-family:Inter;src:url(assets/fonts/inter-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:Inter;src:url(assets/fonts/inter-latin-800-normal.woff2);font-weight:800}
+@font-face{font-family:Inter;src:url(assets/fonts/inter-latin-900-normal.woff2);font-weight:900}
+@font-face{font-family:Serif;src:url(assets/fonts/instrument-serif-latin-400-italic.woff2);font-style:italic}
+@font-face{font-family:Tight;src:url(assets/fonts/inter-tight-latin-900-normal.woff2);font-weight:900}
+:root{--g:#76b900;--r:#ff3b30;--w:#f2f2f0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;background:#000;overflow:hidden}
+#stage{position:absolute;inset:0;overflow:hidden;background:#050505;font-family:Inter;color:var(--w)}
+#cam{position:absolute;inset:0;transform-origin:50% 45%}
+.scene{position:absolute;inset:0;opacity:0;will-change:transform,opacity,filter}
+.abs{position:absolute}
+.c{left:50%;transform:translateX(-50%)}
+/* dot-matrix number font (the "1993" look) */
+.dm{font-family:DM;font-weight:800;letter-spacing:-.02em;line-height:.9;white-space:nowrap;
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 calc(var(--d,6px)*.36),transparent calc(var(--d,6px)*.42));
+  -webkit-mask-size:var(--d,6px) var(--d,6px);}
+.glow{filter:drop-shadow(0 0 18px rgba(255,255,255,.28)) drop-shadow(0 0 60px rgba(255,255,255,.10))}
+.glowg{filter:drop-shadow(0 0 20px rgba(118,185,0,.55)) drop-shadow(0 0 70px rgba(118,185,0,.25))}
+.glowr{filter:drop-shadow(0 0 20px rgba(255,59,48,.6)) drop-shadow(0 0 70px rgba(255,59,48,.25))}
+.lbl{font-family:Mono;font-weight:700;font-size:22px;letter-spacing:.32em;text-transform:uppercase;color:#bdbdb8;white-space:nowrap}
+.lbl.s{font-size:17px;letter-spacing:.28em;color:#8d8d88}
+.tag{font-family:Mono;font-weight:700;font-size:20px;letter-spacing:.22em;padding:9px 16px;border:1.5px solid rgba(255,255,255,.35);background:rgba(10,10,10,.7);white-space:nowrap}
+.tag.g{background:var(--g);color:#071200;border-color:var(--g)}
+.tag.r{background:var(--r);color:#fff;border-color:var(--r)}
+.photo{position:absolute;background-size:cover;background-position:center;filter:grayscale(1) contrast(1.25) brightness(.9)}
+.frame{position:absolute;border:1.5px solid rgba(255,255,255,.22);box-shadow:0 40px 120px rgba(0,0,0,.8)}
+.corner{position:absolute;width:26px;height:26px;border-color:rgba(255,255,255,.85);border-style:solid}
+.stamp{font-family:Tight;font-weight:900;letter-spacing:.06em;border:8px solid currentColor;padding:6px 26px 2px;text-transform:uppercase;white-space:nowrap;border-radius:6px}
+.halftone::after{content:"";position:absolute;inset:0;background:radial-gradient(circle,rgba(0,0,0,.55) 1.1px,transparent 1.7px) 0 0/5px 5px;mix-blend-mode:multiply}
+.serif{font-family:Serif;font-style:italic;font-weight:400}
+#caps{position:absolute;left:0;right:0;top:1395px;text-align:center;z-index:50}
+#caps .ln{font-family:Inter;font-weight:700;font-size:50px;line-height:1.16;letter-spacing:-.01em;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,.9),0 0 2px #000}
+#caps .ln .a{font-family:Serif;font-style:italic;font-weight:400;font-size:62px;letter-spacing:0}
+#caps .ln span{display:inline-block;will-change:transform,opacity,filter}
+#hdr{position:absolute;left:0;right:0;top:0;height:200px;z-index:60}
+#grain,#fx{position:absolute;inset:0;z-index:80;pointer-events:none}
+#vig{position:absolute;inset:0;z-index:79;background:radial-gradient(ellipse 75% 60% at 50% 42%,transparent 40%,rgba(0,0,0,.55) 80%,rgba(0,0,0,.9) 100%)}
+#flash{position:absolute;inset:0;z-index:81;background:#fff;opacity:0;mix-blend-mode:screen}
+#streak{position:absolute;left:-200px;right:-200px;height:6px;top:900px;z-index:82;opacity:0;background:linear-gradient(90deg,transparent,rgba(180,230,120,.0) 10%,rgba(220,255,200,.95) 50%,rgba(180,230,120,0) 90%,transparent);filter:blur(2px)}
+#scan{position:absolute;inset:0;z-index:78;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 4px);pointer-events:none}
+.bggrid{position:absolute;inset:-100px;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:60px 60px}
+.cone{position:absolute;left:50%;top:-200px;width:1400px;height:1700px;transform:translateX(-50%);background:radial-gradient(ellipse 30% 85% at 50% 0%,rgba(255,255,255,.22),rgba(255,255,255,.05) 55%,transparent 75%);mix-blend-mode:screen}
+.line{position:absolute;height:1.5px;background:rgba(255,255,255,.25)}
+svg{overflow:visible}
+</style></head>
+<body><div id="stage">
+<div id="cam">
+  <div class="bggrid" id="bggrid"></div>
+  <div id="scenes"></div>
+</div>
+<div id="hdr"></div>
+<div id="caps"></div>
+<div id="scan"></div>
+<div id="vig"></div>
+<canvas id="grain" width="540" height="960" style="width:1080px;height:1920px;opacity:.11;mix-blend-mode:overlay"></canvas>
+<div id="flash"></div>
+<div id="streak"></div>
+</div>
+<script src="assets/words.js"></script>
+<script src="main.js"></script>
+</body></html>

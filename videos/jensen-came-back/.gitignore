@@ -1,0 +1,5 @@
+parts/
+snaps/
+*.wav
+cues.json
+assets/raw/*.log
