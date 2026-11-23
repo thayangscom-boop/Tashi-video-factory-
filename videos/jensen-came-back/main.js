@@ -89,7 +89,7 @@ scene(0, T_real - .15, r => {
   c.alm = mk(r, 'ALMOST', 'left:50%;top:440px', 'abs tag');
   c.num = dmNum(r, '+$1T', 330, 'left:50%;top:520px', 'glowg', '#a6f03a');
   c.l2 = mk(r, `IN <span class="serif" style="font-size:44px;letter-spacing:0;text-transform:none;color:#fff">one</span> TRADING DAY`, 'left:50%;top:860px', 'abs lbl');
-  c.jen = mk(r, `<img src="assets/jensen_cut.png" style="height:1050px;filter:grayscale(1) contrast(1.15) brightness(1.02)">`, 'left:50%;top:330px', 'abs');
+  c.jen = mk(r, `<img src="assets/jensen_cut.png" style="-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 92%);height:1050px;filter:grayscale(1) contrast(1.15) brightness(1.02)">`, 'left:50%;top:330px', 'abs');
   c.jtag = mk(r, `<div class="tag g">THE ONE MAN</div><div class="lbl" style="margin-top:14px;color:#fff">JENSEN HUANG</div><div class="lbl s" style="margin-top:6px">CO-FOUNDER · CEO</div>`, 'left:64px;top:1080px', 'abs');
   c.brk = corners(r, 470, 520, 305, 380, 'rgba(118,185,0,.9)');
   // build chart path
@@ -140,10 +140,10 @@ scene(T_real - .15, T_el - .1, r => {
         <div class="hl" style="background:rgba(118,185,0,0)">immediately. Unanimous vote of the Board.</div>
         ${'<div style="height:14px;background:#bdbcb6;margin:16px 0;width:VAR%"></div>'.repeat(7).replace(/VAR/g, (()=>{const R=rnd(3);return ()=>60+Math.floor(R()*38)})())}
       </div>
-    </div>`, 'left:50%;top:330px;transform-style:preserve-3d', 'abs');
+    </div>`, 'left:50%;top:280px;transform-style:preserve-3d', 'abs');
   c.beam = mk(r, '', 'left:150px;width:780px;top:400px;height:120px;background:linear-gradient(180deg,transparent,rgba(118,185,0,.35),rgba(200,255,150,.9) 50%,rgba(118,185,0,.35),transparent);mix-blend-mode:screen;filter:blur(1px)', 'abs');
-  c.date = mk(r, `<span class="lbl" style="color:#fff">FILED</span>`, 'left:50%;top:1250px', 'abs');
-  c.dn = dmNum(r, 'NOV 23 · 2026', 64, 'left:50%;top:1290px');
+  c.date = mk(r, `<span class="lbl" style="color:#fff">FILED</span>`, 'left:50%;top:1135px', 'abs');
+  c.dn = dmNum(r, 'NOV 23 · 2026', 64, 'left:50%;top:1172px');
   c.st = mk(r, `<div class="stamp" style="color:var(--g);font-size:110px;background:rgba(5,15,0,.55)">VERIFIED</div>`, 'left:50%;top:760px', 'abs glowg');
   c.q = mk(r, `<span style="font-family:Tight;font-weight:900;font-size:150px">IS IT</span><br><span class="serif" style="font-size:190px;color:var(--g)">real?</span>`, 'left:50%;top:520px;text-align:center;line-height:.95', 'abs');
   return c;
@@ -151,10 +151,10 @@ scene(T_real - .15, T_el - .1, r => {
   const pq = P(t, T_real, .35), qout = P(t, at('i') - .05, .3);
   tf(c.q, { cx: true, s: lerp(1.4, 1, E.o5(pq)) * lerp(1, 1.4, E.io(qout)), o: clamp(pq * 3) * (1 - qout), b: (1 - E.o3(pq)) * 12 + qout * 30 });
   const pd = P(t, at('i') - .15, .7), q = E.o5(pd);
-  tf(c.doc, { cx: true, y: (1 - q) * 300, rx: lerp(38, 12, q) - P(t, at('i'), 2) * 6, ry: lerp(-14, -4, q), s: .9, o: clamp(pd * 2) });
+  tf(c.doc, { cx: true, y: (1 - q) * 300, rx: lerp(38, 12, q) - P(t, at('i'), 2) * 6, ry: lerp(-14, -4, q), s: .84, o: clamp(pd * 2) });
   c.doc.style.perspective = '1400px';
   const pb = P(t, at('i'), .8);
-  c.beam.style.top = lerp(430, 1010, E.io(pb)) + 'px'; c.beam.style.opacity = pb > 0 && pb < 1 ? 1 : 0;
+  c.beam.style.top = lerp(380, 940, E.io(pb)) + 'px'; c.beam.style.opacity = pb > 0 && pb < 1 ? 1 : 0;
   c.doc.querySelectorAll('.hl').forEach((h, i) => { const p = P(t, at('i') + .15 + i * .12, .2); h.style.background = `rgba(118,185,0,${.55 * p})`; });
   const ps = slam(c.st, t, at('checked') + .25, { cx: true, r: -8 });
   rise(c.date, t, at('i') + .3, .4, 20, { cx: true }); rise(c.dn, t, at('i') + .38, .4, 20, { cx: true });
@@ -310,7 +310,7 @@ cue('whoosh', T_then - .15, .6); cue('count', at('more', 0, 22), .55); cue('hit'
 const T_stock = at('stock');
 scene(T_this - .1, at('the', 0, 32.5) - .1, r => {
   const c = {};
-  c.jen = mk(r, `<img src="assets/jensen_cut2.png" style="height:1080px;filter:grayscale(1) contrast(1.2) brightness(.95)">`, 'left:50%;top:410px', 'abs');
+  c.jen = mk(r, `<img src="assets/jensen_cut2.png" style="-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 92%);height:1080px;filter:grayscale(1) contrast(1.2) brightness(.95)">`, 'left:50%;top:410px', 'abs');
   c.rim = mk(r, '', 'left:0;right:0;top:250px;height:1200px;background:radial-gradient(ellipse 45% 55% at 50% 50%,rgba(118,185,0,.25),transparent 70%);mix-blend-mode:screen', 'abs');
   c.fade = mk(r, '', 'left:0;right:0;top:900px;height:600px;background:linear-gradient(180deg,transparent,#050505 75%)', 'abs');
   c.tm = mk(r, `<span class="lbl" style="color:#fff">THIS MORNING</span>`, 'left:50%;top:230px', 'abs');
@@ -417,7 +417,7 @@ scene(T_but - .15, T_and - .1, r => {
      <circle id="dt" r="13" fill="#a6f03a"/></svg>`, 'left:60px;top:470px', 'abs');
   c.bl = mk(r, `<span class="tag" style="background:#fff;color:#000">BEFORE THE SCANDAL</span>`, 'left:80px;top:540px', 'abs');
   c.sb = mk(r, `<div class="tag r" style="font-size:24px">STILL BELOW</div>`, 'left:720px;top:700px', 'abs');
-  c.cr = mk(r, `<div class="lbl s" style="color:#ff8a80">CRASHED IN A MONTH</div>`, 'left:330px;top:1270px', 'abs');
+  c.cr = mk(r, `<div class="lbl s" style="color:#ff8a80">CRASHED IN A MONTH</div>`, 'left:330px;top:1238px', 'abs');
   c.cn = dmNum(r, '-40%', 220, 'left:300px;top:1030px', 'glowr', '#ff5a4f');
   c.hd = mk(r, `<span class="lbl">NVDA · PRICE</span>`, 'left:80px;top:330px', 'abs');
   // series: 100 → 60 over a month → jump +30% to 78
@@ -498,7 +498,7 @@ SHAKE.push([T_realv + .03, 12]);
 // ===================== SCENE 13 — end card
 scene(T_fol - .12, 99, r => {
   const c = {};
-  c.bg = mk(r, `<img src="assets/jensen_cut.png" style="height:1100px;filter:grayscale(1) brightness(.45) contrast(1.1)">`, 'left:50%;top:300px', 'abs');
+  c.bg = mk(r, `<img src="assets/jensen_cut.png" style="-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 92%);height:1100px;filter:grayscale(1) brightness(.45) contrast(1.1)">`, 'left:50%;top:300px', 'abs');
   c.fd = mk(r, '', 'left:0;right:0;top:700px;height:800px;background:linear-gradient(180deg,transparent,#050505 70%)', 'abs');
   c.logo = mk(r, `<div style="width:170px;height:170px;border-radius:50%;border:2px solid rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;background:#0b0b0b;box-shadow:0 0 60px rgba(118,185,0,.35)"><span style="font-family:Tight;font-weight:900;font-size:64px;color:var(--g)">TD</span></div>`, 'left:50%;top:780px', 'abs');
   c.nm = mk(r, `<div style="font-family:Tight;font-weight:900;font-size:84px;letter-spacing:.06em;text-align:center">TASHI DOCU</div><div class="serif" style="text-align:center;font-size:40px;color:#bbb">tomorrow's claim, checked</div>`, 'left:50%;top:975px', 'abs');
@@ -516,12 +516,12 @@ cue('whoosh', T_fol - .12, .5); cue('pop', at('claim') - .1, .8);
 
 // ===================== CAPTIONS
 const CAPS = [
-  'Nvidia just gained | almost a *trillion* dollars', 'in *one* day,', 'all because | *one* *man* came back.', 'Is it *real?*', 'I *checked.*',
+  'Nvidia just gained | almost a *trillion* *dollars*', 'in *one* day,', 'all because | *one* *man* came back.', 'Is it *real?*', 'I *checked.*',
   'Eleven days ago, | CEO Jensen Huang', '*resigned.*', 'A *scandal.*', 'Reports linked him | to a woman', 'US intelligence believes | was a *Chinese* *spy.*',
   'Six days ago, | Nvidia\'s board said', 'it did *not* *intend* | to bring him back.', 'Then, more than | *190,000* people', 'signed a *petition* | to bring him back.',
   'This morning,', '*reinstated,*', 'effective | *immediately,*', '*unanimous* vote.', 'The *stock?*', 'Up about *30%* | at the open,', 'at one point *35.*',
   'Here\'s the | *strange* part.', 'The board says it took input | from senior levels', 'of the *US* *government*', 'and that his return poses | no *national* *security* risk.',
-  'But here\'s the *twist.*', 'Even after this jump, | the stock is still', '*below* where it was | before the scandal.', 'It had *crashed* | more than 40% in a month.',
+  'But here\'s the *twist.*', 'Even after this jump, | the stock is still', '*below* where it was | before the scandal.', 'It had *crashed* | more than *40%* in a month.',
   'And next week, | he answers questions', 'from *Congress* | behind closed doors.', '*Real.*', 'Would you | *trust* *him* again?', 'Tell me *below.*', 'Follow for | tomorrow\'s *claim.*'];
 const CAPEL = document.getElementById('caps');
 const capChunks = []; { let wi = 0;
@@ -540,17 +540,17 @@ const capChunks = []; { let wi = 0;
 const REDW = ['scandal','resigned','chinese','spy','not','intend','twist','below','crashed','strange','congress','trust','him'];
 const ACCENTCOL = (w, t) => (t > 61 && /below/i.test(w)) ? '#b5f55a' : REDW.includes(w.toLowerCase().replace(/[^a-z]/g,'')) ? (w.toLowerCase().startsWith('strange') ? '#ffd23f' : '#ff5a4f') : '#b5f55a';
 function drawCaps(t) {
+  // reference style: final layout, each word resolves from blur on its spoken time; the chunk blurs away at the end
   for (const c of capChunks) {
-    const vis = t >= c.s - .08 && t < c.e;
+    const vis = t >= c.s - .1 && t < c.e;
     c.el.style.display = vis ? 'block' : 'none'; if (!vis) continue;
-    const out = P(t, c.e - .12, .12);
-    c.el.style.opacity = 1 - out;
-    for (const { sp, w, acc } of c.words) {
-      const p = P(t, w.s - .08, .22), q = E.o3(p);
-      sp.style.opacity = .0 + clamp(p * 1.6);
-      sp.style.transform = `translateY(${(1 - q) * 22}px) scale(${acc ? lerp(1.25, 1, E.o5(p)) : 1})`;
-      sp.style.filter = p < 1 ? `blur(${(1 - q) * 8}px)` : 'none';
-      if (acc) sp.style.color = ACCENTCOL(w.w, w.s);
+    const out = P(t, c.e - .2, .2), qo = E.o2(out);
+    c.el.style.opacity = 1 - qo;
+    c.el.style.filter = qo > .01 ? `blur(${qo * 14}px)` : 'none';
+    for (const { sp, w } of c.words) {
+      const p = P(t, w.s - .06, .28), q = E.o3(p);
+      sp.style.opacity = clamp(p * 1.4);
+      sp.style.filter = p < 1 ? `blur(${(1 - q) * 12}px)` : 'none';
     }
   }
 }
