@@ -1,0 +1,6 @@
+node_modules/
+tools/voices/
+output/*
+!output/short.mp4
+!output/poster.png
+public/audio/vo_*.wav

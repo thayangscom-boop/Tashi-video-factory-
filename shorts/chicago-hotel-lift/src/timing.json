@@ -1,0 +1,359 @@
+{
+ "fps": 30,
+ "totalSeconds": 59.669,
+ "totalFrames": 1790,
+ "lines": [
+  {
+   "id": "s1",
+   "scene": "hook",
+   "start": 0.15,
+   "dur": 5.213,
+   "captions": [
+    {
+     "text": "In 1861, Chicago",
+     "start": 0.0,
+     "end": 0.878
+    },
+    {
+     "text": "lifted an ENTIRE hotel",
+     "start": 0.878,
+     "end": 2.085
+    },
+    {
+     "text": "into the air...",
+     "start": 2.085,
+     "end": 3.292
+    },
+    {
+     "text": "with the guests",
+     "start": 3.292,
+     "end": 4.115
+    },
+    {
+     "text": "STILL INSIDE.",
+     "start": 4.115,
+     "end": 5.213
+    }
+   ]
+  },
+  {
+   "id": "s2",
+   "scene": "mud",
+   "start": 5.663,
+   "dur": 7.726,
+   "captions": [
+    {
+     "text": "Chicago was built on",
+     "start": 0.0,
+     "end": 1.088
+    },
+    {
+     "text": "flat, swampy ground,",
+     "start": 1.088,
+     "end": 2.34
+    },
+    {
+     "text": "barely above",
+     "start": 2.34,
+     "end": 2.993
+    },
+    {
+     "text": "Lake Michigan.",
+     "start": 2.993,
+     "end": 4.135
+    },
+    {
+     "text": "When it rained,",
+     "start": 4.135,
+     "end": 5.115
+    },
+    {
+     "text": "the streets turned into",
+     "start": 5.115,
+     "end": 6.366
+    },
+    {
+     "text": "deep, sucking MUD.",
+     "start": 6.366,
+     "end": 7.726
+    }
+   ]
+  },
+  {
+   "id": "s3",
+   "scene": "disease",
+   "start": 13.689,
+   "dur": 3.767,
+   "captions": [
+    {
+     "text": "Waste had",
+     "start": 0.0,
+     "end": 0.458
+    },
+    {
+     "text": "nowhere to drain.",
+     "start": 0.458,
+     "end": 1.68
+    },
+    {
+     "text": "And cholera struck",
+     "start": 1.68,
+     "end": 2.597
+    },
+    {
+     "text": "again and again.",
+     "start": 2.597,
+     "end": 3.767
+    }
+   ]
+  },
+  {
+   "id": "s4",
+   "scene": "plan",
+   "start": 17.757,
+   "dur": 8.655,
+   "captions": [
+    {
+     "text": "So engineer",
+     "start": 0.0,
+     "end": 0.643
+    },
+    {
+     "text": "Ellis Chesbrough",
+     "start": 0.643,
+     "end": 1.579
+    },
+    {
+     "text": "made a bold plan.",
+     "start": 1.579,
+     "end": 2.983
+    },
+    {
+     "text": "Lay the sewers",
+     "start": 2.983,
+     "end": 3.801
+    },
+    {
+     "text": "ON TOP of the streets,",
+     "start": 3.801,
+     "end": 5.263
+    },
+    {
+     "text": "then bury them,",
+     "start": 5.263,
+     "end": 6.316
+    },
+    {
+     "text": "raising the streets",
+     "start": 6.316,
+     "end": 7.427
+    },
+    {
+     "text": "up to 14 FEET.",
+     "start": 7.427,
+     "end": 8.655
+    }
+   ]
+  },
+  {
+   "id": "s5",
+   "scene": "sunken",
+   "start": 26.712,
+   "dur": 4.243,
+   "captions": [
+    {
+     "text": "But the buildings",
+     "start": 0.0,
+     "end": 0.793
+    },
+    {
+     "text": "stayed where they were.",
+     "start": 0.793,
+     "end": 2.192
+    },
+    {
+     "text": "Front doors",
+     "start": 2.192,
+     "end": 2.705
+    },
+    {
+     "text": "opened onto",
+     "start": 2.705,
+     "end": 3.218
+    },
+    {
+     "text": "a WALL of dirt.",
+     "start": 3.218,
+     "end": 4.243
+    }
+   ]
+  },
+  {
+   "id": "s6",
+   "scene": "tremont",
+   "start": 31.256,
+   "dur": 6.182,
+   "captions": [
+    {
+     "text": "The Tremont House,",
+     "start": 0.0,
+     "end": 0.962
+    },
+    {
+     "text": "a grand brick hotel,",
+     "start": 0.962,
+     "end": 2.015
+    },
+    {
+     "text": "was suddenly sinking",
+     "start": 2.015,
+     "end": 2.931
+    },
+    {
+     "text": "below the new street.",
+     "start": 2.931,
+     "end": 4.213
+    },
+    {
+     "text": "And its owners",
+     "start": 4.213,
+     "end": 4.854
+    },
+    {
+     "text": "did NOT want to close.",
+     "start": 4.854,
+     "end": 6.182
+    }
+   ]
+  },
+  {
+   "id": "s7",
+   "scene": "jacks",
+   "start": 37.738,
+   "dur": 9.816,
+   "captions": [
+    {
+     "text": "So a young",
+     "start": 0.0,
+     "end": 0.539
+    },
+    {
+     "text": "George Pullman",
+     "start": 0.539,
+     "end": 1.294
+    },
+    {
+     "text": "and his partners",
+     "start": 1.294,
+     "end": 2.157
+    },
+    {
+     "text": "brought in ~500 men",
+     "start": 2.157,
+     "end": 3.182
+    },
+    {
+     "text": "and 5,000 JACKSCREWS.",
+     "start": 3.182,
+     "end": 4.692
+    },
+    {
+     "text": "On a signal,",
+     "start": 4.692,
+     "end": 5.501
+    },
+    {
+     "text": "every man gave",
+     "start": 5.501,
+     "end": 6.257
+    },
+    {
+     "text": "his screws a small turn.",
+     "start": 6.257,
+     "end": 7.929
+    },
+    {
+     "text": "Then again.",
+     "start": 7.929,
+     "end": 8.899
+    },
+    {
+     "text": "And again.",
+     "start": 8.899,
+     "end": 9.816
+    }
+   ]
+  },
+  {
+   "id": "s8",
+   "scene": "rise",
+   "start": 47.854,
+   "dur": 6.484,
+   "captions": [
+    {
+     "text": "Inch by inch,",
+     "start": 0.0,
+     "end": 0.894
+    },
+    {
+     "text": "the hotel rose",
+     "start": 0.894,
+     "end": 1.677
+    },
+    {
+     "text": "about SIX FEET.",
+     "start": 1.677,
+     "end": 2.907
+    },
+    {
+     "text": "Inside, guests",
+     "start": 2.907,
+     "end": 3.689
+    },
+    {
+     "text": "kept eating,",
+     "start": 3.689,
+     "end": 4.528
+    },
+    {
+     "text": "sleeping,",
+     "start": 4.528,
+     "end": 5.199
+    },
+    {
+     "text": "and checking in.",
+     "start": 5.199,
+     "end": 6.484
+    }
+   ]
+  },
+  {
+   "id": "s9",
+   "scene": "outro",
+   "start": 54.639,
+   "dur": 3.431,
+   "captions": [
+    {
+     "text": "Chicago didn't just",
+     "start": 0.0,
+     "end": 0.815
+    },
+    {
+     "text": "escape the mud.",
+     "start": 0.815,
+     "end": 1.758
+    },
+    {
+     "text": "It LIFTED ITSELF",
+     "start": 1.758,
+     "end": 2.444
+    },
+    {
+     "text": "right out of it.",
+     "start": 2.444,
+     "end": 3.431
+    }
+   ]
+  }
+ ]
+}

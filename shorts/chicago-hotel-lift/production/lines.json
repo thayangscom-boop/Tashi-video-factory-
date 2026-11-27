@@ -1,0 +1,122 @@
+[
+ {
+  "id": "s1",
+  "scene": "hook",
+  "text": "In 1861, Chicago lifted an entire hotel into the air... with the guests still inside.",
+  "captions": [
+   "In 1861, Chicago",
+   "lifted an ENTIRE hotel",
+   "into the air...",
+   "with the guests",
+   "STILL INSIDE."
+  ],
+  "tts": "In eighteen sixty-one, Chicago lifted an entire hotel into the air... with the guests still inside."
+ },
+ {
+  "id": "s2",
+  "scene": "mud",
+  "text": "Chicago was built on flat, swampy ground, barely above Lake Michigan. When it rained, the streets turned into deep, sucking mud.",
+  "captions": [
+   "Chicago was built on",
+   "flat, swampy ground,",
+   "barely above",
+   "Lake Michigan.",
+   "When it rained,",
+   "the streets turned into",
+   "deep, sucking MUD."
+  ]
+ },
+ {
+  "id": "s3",
+  "scene": "disease",
+  "text": "Waste had nowhere to drain. And cholera struck the city again and again.",
+  "captions": [
+   "Waste had",
+   "nowhere to drain.",
+   "And cholera struck",
+   "again and again."
+  ]
+ },
+ {
+  "id": "s4",
+  "scene": "plan",
+  "text": "So engineer Ellis Chesbrough made a bold plan. Lay the sewers on top of the old streets, then bury them, raising the streets by up to fourteen feet.",
+  "captions": [
+   "So engineer",
+   "Ellis Chesbrough",
+   "made a bold plan.",
+   "Lay the sewers",
+   "ON TOP of the streets,",
+   "then bury them,",
+   "raising the streets",
+   "up to 14 FEET."
+  ]
+ },
+ {
+  "id": "s5",
+  "scene": "sunken",
+  "text": "But the buildings stayed where they were. Front doors now opened onto a wall of dirt.",
+  "captions": [
+   "But the buildings",
+   "stayed where they were.",
+   "Front doors",
+   "opened onto",
+   "a WALL of dirt."
+  ]
+ },
+ {
+  "id": "s6",
+  "scene": "tremont",
+  "text": "The Tremont House, a grand brick hotel, was suddenly sinking below the new street. And its owners did not want to close.",
+  "captions": [
+   "The Tremont House,",
+   "a grand brick hotel,",
+   "was suddenly sinking",
+   "below the new street.",
+   "And its owners",
+   "did NOT want to close."
+  ]
+ },
+ {
+  "id": "s7",
+  "scene": "jacks",
+  "text": "So a young George Pullman and his partners brought in about five hundred men and five thousand jackscrews. On a signal, every man gave his screws a small turn. Then again. And again.",
+  "captions": [
+   "So a young",
+   "George Pullman",
+   "and his partners",
+   "brought in ~500 men",
+   "and 5,000 JACKSCREWS.",
+   "On a signal,",
+   "every man gave",
+   "his screws a small turn.",
+   "Then again.",
+   "And again."
+  ]
+ },
+ {
+  "id": "s8",
+  "scene": "rise",
+  "text": "Inch by inch, the hotel rose about six feet. Inside, guests kept eating, sleeping, and checking in.",
+  "captions": [
+   "Inch by inch,",
+   "the hotel rose",
+   "about SIX FEET.",
+   "Inside, guests",
+   "kept eating,",
+   "sleeping,",
+   "and checking in."
+  ]
+ },
+ {
+  "id": "s9",
+  "scene": "outro",
+  "text": "Chicago didn't just escape the mud. It lifted itself right out of it.",
+  "captions": [
+   "Chicago didn't just",
+   "escape the mud.",
+   "It LIFTED ITSELF",
+   "right out of it."
+  ]
+ }
+]

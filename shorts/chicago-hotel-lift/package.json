@@ -1,0 +1,24 @@
+{
+  "name": "chicago-hotel-lift-short",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "still": "remotion still src/index.ts Short output/still.png --browser-executable=$CHROME",
+    "render": "remotion render src/index.ts Short output/short.mp4 --codec=h264 --crf=20 --browser-executable=$CHROME"
+  },
+  "dependencies": {
+    "@fontsource/anton": "^5.3.0",
+    "@fontsource/fredoka": "^5.3.0",
+    "@remotion/cli": "^4.0.547",
+    "@remotion/transitions": "^4.0.547",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.547"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.3",
+    "typescript": "^7.0.2"
+  }
+}
