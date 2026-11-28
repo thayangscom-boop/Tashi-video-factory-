@@ -100,10 +100,10 @@ export const LiftShot: React.FC<{ t: number; frame: number; shot: number }> = ({
   let sunFocus: V3 = [0, 2, FZ + 2]; let sunExtent = 16; let sunMap = 2048;
   if (shot === 0) {
     const px = pPos[0]; const rev = seg(t, 1.35, 2.2);
-    cam = { pos: [px + lerp(3.6, 1.9, rev), BW + lerp(1.2, 3.1, rev), FZ + lerp(6.4, 5.7, rev)], look: [px + lerp(0.1, -1.2, rev), lerp(BW + 1.12, 0.4, rev), FZ + lerp(4.5, 0.9, rev)], fov: lerp(40, 50, rev) };
+    cam = { pos: [px + lerp(3.6, 2.7, rev), BW + lerp(1.2, 2.5, rev), FZ + lerp(6.4, 4.1, rev)], look: [px + lerp(0.1, -3.6, rev), lerp(BW + 1.12, 0.7, rev), FZ + lerp(4.5, 0.9, rev)], fov: lerp(40, 52, rev) };
     sunFocus = [px, BW, FZ + 4]; sunExtent = 13;
   } else if (shot === 1) {
-    cam = { pos: key3(t, [[2.25, [2.2, 8.2, FZ + 2.9]], [3.5, [1.2, 3.6, FZ + 2.7]], [4.6, [-0.55, 0.78, FZ + 1.3]]]) as V3, look: key3(t, [[2.25, [-7.0, 1.4, FZ + 2.5]], [3.5, [-4.6, 0.9, FZ + 1.8]], [4.6, [-2.4, 0.42, FZ + 0.1]]]) as V3, fov: 46 };
+    cam = { pos: key3(t, [[2.25, [-3.4, 7.6, FZ + 3.0]], [3.5, [-1.6, 3.4, FZ + 2.7]], [4.6, [-0.55, 0.78, FZ + 1.3]]]) as V3, look: key3(t, [[2.25, [-9.5, 1.6, FZ + 2.6]], [3.5, [-6.0, 0.9, FZ + 1.9]], [4.6, [-2.4, 0.42, FZ + 0.1]]]) as V3, fov: 46 };
     sunFocus = [-5, 1.5, FZ + 2]; sunExtent = 15;
   } else if (shot === 2) {
     const w = seg(t, TL.whip - 0.14, TL.whip + 0.14); const tr = seg(t, TL.whip, 7.0);
