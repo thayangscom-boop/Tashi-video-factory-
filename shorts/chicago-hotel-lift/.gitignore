@@ -5,4 +5,5 @@ output/*
 !output/poster.png
 !output/preview_v2.mp4
 !output/preview_lift.mp4
+!output/preview_opening.mp4
 public/audio/vo_*.wav

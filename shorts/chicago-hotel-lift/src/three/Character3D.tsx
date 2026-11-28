@@ -23,11 +23,12 @@ export type Pose3 = {
   propR?: React.ReactNode; propL?: React.ReactNode; // rendered at the hand
 };
 
-const UPPER_LEG = 0.31, LOWER_LEG = 0.3, UPPER_ARM = 0.27, FORE_ARM = 0.25;
-export const STAND_HIP = 0.66;
+const UPPER_LEG = 0.43, LOWER_LEG = 0.42, UPPER_ARM = 0.3, FORE_ARM = 0.27;
+export const STAND_HIP = 0.88;
+const HEAD = 0.84; // head scale relative to the body
 
 /** Walk cycle helper: returns foot targets + hip bob for a phase (radians). Stride is half step length. */
-export const walkFeet = (phase: number, stride = 0.24, lift = 0.11) => {
+export const walkFeet = (phase: number, stride = 0.3, lift = 0.12) => {
   const foot = (ph: number, x: number) => {
     const p = ((ph % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
     if (p < Math.PI) return V(x, 0.07, stride * (1 - (2 * p) / Math.PI)); // stance: slides back
@@ -36,7 +37,7 @@ export const walkFeet = (phase: number, stride = 0.24, lift = 0.11) => {
   };
   return {
     footL: foot(phase, -0.1), footR: foot(phase + Math.PI, 0.1),
-    hipY: STAND_HIP - 0.035 - Math.abs(Math.cos(phase)) * 0.03,
+    hipY: STAND_HIP - 0.03 - Math.abs(Math.cos(phase)) * 0.035,
     swing: Math.sin(phase), speedPerRad: (2 * stride) / Math.PI,
   };
 };
@@ -102,7 +103,7 @@ export const Character3D: React.FC<{
   const hips = V(hipX, hipY, hipZ);
   const qT = new THREE.Quaternion().setFromEuler(new THREE.Euler(lean, twist, side, 'YXZ'));
   const tp = (x: number, y: number, z: number) => V(x, y, z).applyQuaternion(qT).add(hips);
-  const shL = tp(-0.2 * w, 0.46, 0), shR = tp(0.2 * w, 0.46, 0);
+  const shL = tp(-0.205 * w, 0.46, 0), shR = tp(0.205 * w, 0.46, 0);
   const neck = tp(0, 0.52, 0.0);
   const qH = qT.clone().multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(headPitch, headYaw, headRoll, 'YXZ')));
   const hpL = tp(-0.1, -0.03, 0), hpR = tp(0.1, -0.03, 0);
@@ -110,7 +111,7 @@ export const Character3D: React.FC<{
   const kneePole = V(0, 0.1, 1);
   const legL = ik2(hpL, fL, UPPER_LEG, LOWER_LEG, kneePole.clone().add(V(-0.12, 0, 0)));
   const legR = ik2(hpR, fR, UPPER_LEG, LOWER_LEG, kneePole.clone().add(V(0.12, 0, 0)));
-  const rest = (s: number, sh: THREE.Vector3) => sh.clone().add(V(s * 0.07, -0.47, 0.05 + s * -swing * 0.2).applyQuaternion(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, twist, 0))));
+  const rest = (s: number, sh: THREE.Vector3) => sh.clone().add(V(s * 0.07, -0.53, 0.05 + s * -swing * 0.22).applyQuaternion(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, twist, 0))));
   const hL = pose.handL ?? rest(-1, shL), hR = pose.handR ?? rest(1, shR);
   const armL = ik2(shL, hL, UPPER_ARM, FORE_ARM, V(-0.6, -0.5, -1).applyQuaternion(qT));
   const armR = ik2(shR, hR, UPPER_ARM, FORE_ARM, V(0.6, -0.5, -1).applyQuaternion(qT));
@@ -118,7 +119,7 @@ export const Character3D: React.FC<{
 
   const coatGeo = useMemo(() => {
     const pts = look.dress
-      ? [[0.4, -0.6], [0.4, -0.56], [0.34, -0.36], [0.25, -0.1], [0.17, 0.12], [0.185, 0.34], [0.17, 0.45], [0.085, 0.53], [0, 0.54]]
+      ? [[0.42, -0.82], [0.42, -0.78], [0.36, -0.5], [0.26, -0.14], [0.17, 0.12], [0.185, 0.34], [0.17, 0.45], [0.085, 0.53], [0, 0.54]]
       : [[0.0, -0.2], [0.21, -0.19], [0.225, -0.14], [0.2, 0.02], [0.172, 0.18], [0.195, 0.35], [0.178, 0.455], [0.085, 0.53], [0, 0.54]];
     return new THREE.LatheGeometry(pts.map(([r, y]) => new THREE.Vector2(r, y)), 28);
   }, [look.dress]);
@@ -129,8 +130,8 @@ export const Character3D: React.FC<{
     const pitch = clamp((a.y - 0.07) * 3, 0, 0.7);
     return (
       <group position={[a.x, a.y - 0.03, a.z]} rotation={[pitch, 0, 0]}>
-        <Sph rad={0.1} s={[0.82, 0.55, 1.5]} p={[0, 0.0, 0.055]} c={shoes} r={0.45} />
-        <Box size={[0.15, 0.025, 0.27]} p={[0, -0.04, 0.05]} c={tint(shoes, 0.6)} />
+        <Sph rad={0.088} s={[0.82, 0.55, 1.55]} p={[0, 0.0, 0.055]} c={shoes} r={0.45} />
+        <Box size={[0.13, 0.025, 0.25]} p={[0, -0.04, 0.05]} c={tint(shoes, 0.6)} />
         <group visible={false}><Sph rad={0.01} p={[k.x, 0, 0]} c="#000" /></group>
       </group>
     );
@@ -138,8 +139,8 @@ export const Character3D: React.FC<{
   const hand = (a: { mid: THREE.Vector3; end: THREE.Vector3 }, s: number, prop?: React.ReactNode) => (
     <group position={a.end} quaternion={foreDir(a)}>
       {!look.rolled && <Cyl rt={0.054} rb={0.052} h={0.05} p={[0, 0.03, 0]} c={tint(sleeve, 1.15)} />}
-      <Sph rad={0.058} s={[1, 1.15, 0.8]} p={[0, -0.035, 0]} c={look.skin} r={0.6} />
-      <Sph rad={0.024} p={[s * -0.045, -0.03, 0.025]} c={look.skin} r={0.6} />
+      <Sph rad={0.05} s={[1, 1.2, 0.75]} p={[0, -0.035, 0]} c={look.skin} r={0.6} />
+      <Sph rad={0.02} p={[s * -0.04, -0.03, 0.025]} c={look.skin} r={0.6} />
       {prop}
     </group>
   );
@@ -148,10 +149,10 @@ export const Character3D: React.FC<{
     <group position={pos} rotation={[0, rotY, 0]} scale={scale}>
       {/* legs */}
       {!look.dress && <>
-        <Bone a={hpL} b={legL.mid} ra={0.09} rb={0.075} c={look.pants} />
-        <Bone a={legL.mid} b={legL.end} ra={0.075} rb={0.06} c={look.pants} />
-        <Bone a={hpR} b={legR.mid} ra={0.09} rb={0.075} c={look.pants} />
-        <Bone a={legR.mid} b={legR.end} ra={0.075} rb={0.06} c={look.pants} />
+        <Bone a={hpL} b={legL.mid} ra={0.085} rb={0.068} c={look.pants} />
+        <Bone a={legL.mid} b={legL.end} ra={0.068} rb={0.052} c={look.pants} />
+        <Bone a={hpR} b={legR.mid} ra={0.085} rb={0.068} c={look.pants} />
+        <Bone a={legR.mid} b={legR.end} ra={0.068} rb={0.052} c={look.pants} />
       </>}
       {foot(legL.end, legL.mid)}{foot(legR.end, legR.mid)}
       {/* torso */}
@@ -168,13 +169,13 @@ export const Character3D: React.FC<{
         <mesh position={[0, 0.5, 0.01]} rotation={[Math.PI / 2 - 0.25, 0, 0]} castShadow><torusGeometry args={[0.085, 0.028, 8, 20]} /><Mat c={look.scarf ?? '#efe9dc'} r={0.9} /></mesh>
       </group>
       {/* arms */}
-      <Bone a={shL} b={armL.mid} ra={0.07} rb={0.058} c={sleeve} />
-      <Bone a={armL.mid} b={armL.end} ra={0.058} rb={0.048} c={look.rolled ? look.skin : sleeve} />
-      <Bone a={shR} b={armR.mid} ra={0.07} rb={0.058} c={sleeve} />
-      <Bone a={armR.mid} b={armR.end} ra={0.058} rb={0.048} c={look.rolled ? look.skin : sleeve} />
+      <Bone a={shL} b={armL.mid} ra={0.064} rb={0.052} c={sleeve} />
+      <Bone a={armL.mid} b={armL.end} ra={0.052} rb={0.042} c={look.rolled ? look.skin : sleeve} />
+      <Bone a={shR} b={armR.mid} ra={0.064} rb={0.052} c={sleeve} />
+      <Bone a={armR.mid} b={armR.end} ra={0.052} rb={0.042} c={look.rolled ? look.skin : sleeve} />
       {hand(armL, -1, pose.propL)}{hand(armR, 1, pose.propR)}
       {/* head */}
-      <group position={neck} quaternion={qH}>
+      <group position={neck} quaternion={qH} scale={HEAD}>
         <Cyl rt={0.06} rb={0.065} h={0.1} p={[0, 0.02, 0]} c={skinD} />
         <Sph rad={0.205} s={[1, 1.06, 0.97]} p={[0, 0.22, 0]} c={look.skin} r={0.62} seg={32} />
         <Sph rad={0.17} s={[1.08, 0.8, 0.95]} p={[0, 0.13, 0.02]} c={look.skin} r={0.62} seg={28} />
@@ -208,6 +209,17 @@ export const Character3D: React.FC<{
       </group>
     </group>
   );
+};
+
+/** Full walk pose: feet, pelvis sway, counter-rotating shoulders, swinging bent arms, head bob. */
+export const walkPose = (phase: number, stride = 0.3, o: { arms?: boolean; lean?: number; lift?: number } = {}): Pose3 => {
+  const w = walkFeet(phase, stride, o.lift ?? 0.12); const c = Math.cos(phase); const k = stride / 0.3;
+  const hand = (s: number) => V(s * 0.25, w.hipY + 0.46 - 0.47 + Math.max(0, -s * c) * 0.07 * k, 0.04 - s * c * 0.27 * k);
+  return {
+    footL: w.footL, footR: w.footR, hipY: w.hipY, hipX: Math.sin(phase) * 0.022, lean: o.lean ?? 0.06, twist: -c * 0.11 * k, side: Math.sin(phase) * 0.025,
+    headYaw: c * 0.07 * k, headPitch: -0.03 + Math.abs(Math.sin(phase)) * 0.03,
+    ...(o.arms === false ? {} : { handL: hand(-1), handR: hand(1) }),
+  };
 };
 
 /** Convert a world point into a character's local space (for IK hand/foot targets). */

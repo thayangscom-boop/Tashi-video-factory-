@@ -4,9 +4,9 @@ import { CAST3, Character3D, Pose3 } from './Character3D';
 import { Box, Cam, Cyl, Glow, Mat, Puff, Sph, V, V3, clamp, key3, lerp, plankDraw, rnd, seg, settle, useTex } from './kit';
 
 /** Hotel room interior. tl = seconds since the cut. The building is jolted upward at JOLT. */
-const JOLT = 0.72;
 
-export const RoomShot: React.FC<{ t: number; frame: number }> = ({ t: tl, frame }) => {
+export const RoomShot: React.FC<{ t: number; frame: number; joltT?: number }> = ({ t: tl, frame, joltT = 0.72 }) => {
+  const JOLT = joltT;
   const wallpaper = useTex(256, 256, (g, w, h) => {
     g.fillStyle = '#7d4a4a'; g.fillRect(0, 0, w, h);
     for (let i = 0; i < 4; i++) { g.fillStyle = '#8a5454'; g.fillRect(i * 64 + 6, 0, 26, h); g.fillStyle = 'rgba(240,200,140,0.5)'; g.fillRect(i * 64 + 44, 0, 3, h); }
@@ -64,10 +64,10 @@ export const RoomShot: React.FC<{ t: number; frame: number }> = ({ t: tl, frame 
   const cupW = toWorld(cupL);
   const cupTilt = sip * 0.55 - startle * 0.25;
   const pose: Pose3 = {
-    hipY: 0.5 + jolt * 0.03, hipZ: -0.02, lean: 0.06 + sip * 0.1 - startle * 0.12, twist: -glance * 0.25 + cheers * 0.05, side: cheers * 0.04,
+    hipY: 0.52 + jolt * 0.03, hipZ: -0.02, lean: 0.06 + sip * 0.1 - startle * 0.12, twist: -glance * 0.25 + cheers * 0.05, side: cheers * 0.04,
     headPitch: sip * 0.16 - startle * 0.12, headYaw: -glance * 1.0 + cheers * -0.1, headRoll: cheers * 0.12,
     handR: cupL.clone().add(V(0.07, 0.035, -0.02)), handL: V(-0.2, 0.83 + startle * 0.06, 0.42),
-    footL: V(-0.13, 0.07, 0.3), footR: V(0.13, 0.07, 0.36 - startle * 0.1),
+    footL: V(-0.13, 0.07, 0.42), footR: V(0.13, 0.07, 0.5 - startle * 0.1),
     eyes: 1 + startle * 0.4 - sip * 0.6, brow: startle + cheers * 0.5, lookX: -glance * 1.2, lookY: -sip * 0.6,
     smile: lerp(0.35, 0.95, cheers), open: startle * 0.35 * (1 - cheers), mouthW: 1,
   };

@@ -38,7 +38,7 @@ const facadeTex = (seed: number, wall: string, signText: string | null, wood: bo
   }
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
 };
-const Neighbor: React.FC<{ p: V3; size: V3; wall: string; sign: string | null; seed: number; wood?: boolean; awning?: string; night: number }> = ({ p, size, wall, sign, seed, wood = false, awning, night }) => {
+export const Neighbor: React.FC<{ p: V3; size: V3; wall: string; sign: string | null; seed: number; wood?: boolean; awning?: string; night: number }> = ({ p, size, wall, sign, seed, wood = false, awning, night }) => {
   const tex = useMemo(() => ({ map: facadeTex(seed, wall, sign, wood, false), emap: facadeTex(seed, wall, sign, wood, true) }), [seed, wall, sign, wood]);
   const [w, h, d] = size;
   return (
@@ -145,7 +145,7 @@ export const PitStreet: React.FC<{ t: number; tod: number; lift: number; lamps?:
           {/* stock of timber + spare jacks waiting on the boardwalk */}
           {Array.from({ length: 8 }).map((_, i) => <Box key={i} size={[3.2, 0.2, 0.22]} p={[-15.5, 0.22 + Math.floor(i / 4) * 0.21, frontZ + 1.0 + (i % 4) * 0.26]} rot={[0, (rnd(i) - 0.5) * 0.05, 0]} c={['#a57a4c', '#96693c', '#b08655'][i % 3]} r={0.95} />)}
           {[0, 1, 2, 3].map((i) => <group key={i} position={[-17.6 - (i % 2) * 0.5, 0.12, frontZ + 1.0 + Math.floor(i / 2) * 0.5]}><Cyl rt={0.11} rb={0.19} h={0.34} p={[0, 0.17, 0]} c="#3f464e" m={0.7} r={0.45} seg={10} /><Cyl rt={0.045} h={0.25} p={[0, 0.45, 0]} c="#9aa3ab" m={0.85} r={0.3} seg={8} /></group>)}
-          {Array.from({ length: 7 }).map((_, i) => <mesh key={i} rotation={[-Math.PI / 2, 0, rnd(i) * 3]} position={[-20 + rnd(i * 3.1) * 40, 0.02, frontZ + 6 + rnd(i * 5.7) * 14]}><circleGeometry args={[0.8 + rnd(i * 2) * 1.4, 20]} /><Mat c="#9aa6b8" r={0.08} m={0.8} /></mesh>)}
+          {Array.from({ length: 7 }).map((_, i) => <mesh key={i} rotation={[-Math.PI / 2, 0, rnd(i) * 3]} position={[-20 + rnd(i * 3.1) * 40, 0.02, frontZ + 6 + rnd(i * 5.7) * 14]}><circleGeometry args={[0.8 + rnd(i * 2) * 1.4, 20]} /><Mat c="#a9b6c8" r={0.12} m={0.1} /></mesh>)}
         </>}
       </group>
       {/* trench clutter: spare cribbing, a ladder, tool chest, buckets */}
@@ -173,8 +173,8 @@ const CREW: Look3[] = [CAST3.worker1, CAST3.worker2, CAST3.worker3];
 /** A row of screw jacks along one wall with a man on every bar. Local frame: wall face at z=0, street side = +z, row runs along x. */
 export const CrewRow: React.FC<{
   t: number; frame: number; lift: number; xs: number[]; seed?: number; lookAt?: number; // lookAt: 0..1 heads turned to the foreman
-  hide?: number[]; slide?: { k: number; z: number }; ready?: number;
-}> = ({ t, frame, lift, xs, seed = 0, lookAt = 0, hide = [], slide, ready = 1 }) => {
+  hide?: number[]; slide?: { k: number; z: number }; ready?: number; bar?: (t: number, off: number) => number; eff?: (t: number, off: number) => number;
+}> = ({ t, frame, lift, xs, seed = 0, lookAt = 0, hide = [], slide, ready = 1, bar = barAngle, eff = effort }) => {
   const blocks = Math.max(0, lift - 0.86);
   const stage = blocks > 0.25 ? blocks - 0.12 : 0; // plank staging the men stand on once the packing gets tall
   return (
@@ -184,7 +184,7 @@ export const CrewRow: React.FC<{
         {xs.map((x, k) => <Crib key={`c${k}`} p={[x - 1.5, 0, 0.55]} h={stage - 0.07} w={0.8} />)}
       </>}
       {xs.map((x, k) => {
-        const off = manOff(k + seed); const a = barAngle(t, off); const e = effort(t, off) * ready;
+        const off = manOff(k + seed); const a = bar(t, off); const e = eff(t, off) * ready;
         const sz = slide && slide.k === k ? slide.z : 0;
         const pos: V3 = [x - 0.74, stage, 0.36]; const rotY = Math.PI / 2;
         const pivot = V(x, blocks + 0.42, -0.32);
@@ -196,7 +196,7 @@ export const CrewRow: React.FC<{
           lean: lerp(0.6, -0.08, u), twist: lerp(-0.1, 0.3, u),
           headPitch: lerp(lerp(-0.45, 0.05, u), -0.5, lookAt), headYaw: lerp(0.45, -0.95, lookAt) + idle * 0.05,
           handR: along(0.84), handL: along(0.64),
-          footL: V(-0.17, 0.07, -0.16), footR: V(0.17, 0.07, 0.2 - u * 0.05),
+          footL: V(-0.17, 0.07 + Math.sin(Math.min(1, Math.max(0, u)) * Math.PI) * 0.05, -0.2 - u * 0.12), footR: V(0.17, 0.07 + Math.sin(Math.min(1, Math.max(0, 1 - u)) * Math.PI) * 0.03, 0.26 - u * 0.1),
           smile: e > 0.3 ? -0.9 : 0.4, open: e > 0.5 ? 0.28 : 0, mouthW: 1.2, browTilt: e, brow: lookAt * 0.6 - e * 0.5, eyes: 1 - e * 0.45, lookY: lookAt * 0.6,
         };
         return <group key={k}>

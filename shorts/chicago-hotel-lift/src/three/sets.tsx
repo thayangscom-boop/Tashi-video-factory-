@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import * as THREE from 'three';
 import { Box, Cyl, Glow, Mat, Puff, Sph, V3, brickDraw, dirtDraw, makeTex, plankDraw, rnd, stoneDraw, tint, useFontTex, useTex } from './kit';
 
-export const HOTEL = { W: 20, D: 11, base: 0.9, ground: 4.0, floorH: 3.1, floors: 5, cols: 8, sideCols: 4 };
+export const HOTEL = { W: 30, D: 13, base: 0.9, ground: 4.2, floorH: 3.2, floors: 6, cols: 12, sideCols: 5 };
 export const HOTEL_TOP = HOTEL.base + HOTEL.ground + HOTEL.floors * HOTEL.floorH;
 const STONE = '#d8ccb4';
 
@@ -62,7 +62,7 @@ const Window: React.FC<{ p: V3; lit: boolean; guest?: boolean; seed: number; nig
 );
 
 /** The hotel (original stylised design). Origin: centre of footprint at street level; `lift` raises it. */
-export const Hotel3D: React.FC<{ lift: number; t: number; jackAngle?: (i: number) => number; night?: number; shake?: number; ownJacks?: boolean; doorOpen?: number; smoke?: number; underGlow?: boolean }> = ({ lift, t, jackAngle = () => 0, night = 0.6, shake = 0, ownJacks = true, doorOpen = 0, smoke = 0.22, underGlow = true }) => {
+export const Hotel3D: React.FC<{ lift: number; t: number; jackAngle?: (i: number) => number; night?: number; shake?: number; ownJacks?: boolean; doorOpen?: number; smoke?: number; underGlow?: boolean; deepRows?: boolean }> = ({ lift, t, jackAngle = () => 0, night = 0.6, shake = 0, ownJacks = true, doorOpen = 0, smoke = 0.22, underGlow = true, deepRows = false }) => {
   const { W, D, base, ground, floorH, floors, cols, sideCols } = HOTEL;
   const wallH = ground + floors * floorH;
   const brickF = useTex(512, 512, brickDraw('#a4513d', '#6f4638'), [W / 3, wallH / 3]);
@@ -89,7 +89,10 @@ export const Hotel3D: React.FC<{ lift: number; t: number; jackAngle?: (i: number
           <Box size={[W - 1.2, Math.max(0.01, lift), D - 4]} p={[0, lift / 2, -1.2]} c="#140d09" r={1} shadow={false} />
           {Array.from({ length: 17 }).map((_, i) => i % 2 === 0
             ? (ownJacks ? <Jack key={i} p={[jx(i), 0, fz - 0.32]} angle={jackAngle(i)} ext={Math.max(0.02, lift - blocks - 0.62)} blocks={blocks} /> : null)
-            : <Crib key={i} p={[jx(i), 0, fz - 0.5]} h={lift - 0.02} />)}
+            : <Crib key={i} p={[jx(i), 0, fz - (ownJacks ? 0.5 : 1.25)]} h={lift - 0.02} />)}
+          {/* rows of jacks receding under the building: thousands, not dozens */}
+          {deepRows && [1.9, 2.55, 3.05].map((dz, r) => Array.from({ length: 24 }).map((_, i) => { const x = -W / 2 + 1.2 + i * ((W - 2.4) / 23) + (r % 2) * 0.55; const bl = Math.max(0, lift - 0.86);
+            return <group key={`${r}-${i}`} position={[x, bl, fz - dz]}>{bl > 0.05 && <Box size={[0.5, bl, 0.5]} p={[0, -bl / 2, 0]} c="#7a5632" r={0.95} shadow={false} />}<Cyl rt={0.11} rb={0.19} h={0.34} p={[0, 0.17, 0]} c="#3f464e" m={0.7} r={0.45} seg={8} shadow={false} /><Cyl rt={0.045} h={Math.max(0.05, lift - bl - 0.34)} p={[0, 0.34 + Math.max(0.05, lift - bl - 0.34) / 2, 0]} c="#9aa3ab" m={0.85} r={0.3} seg={6} shadow={false} /></group>; }))}
           {Array.from({ length: 9 }).map((_, i) => <Crib key={`s${i}`} p={[sx - 0.55, 0, fz - 1.6 - i * 1.1]} h={lift - 0.02} />)}
           {Array.from({ length: 9 }).map((_, i) => <Crib key={`t${i}`} p={[-sx + 0.55, 0, fz - 1.6 - i * 1.1]} h={lift - 0.02} />)}
           {Array.from({ length: 8 }).map((_, i) => <Crib key={`r${i}`} p={[jx(i * 2 + 1), 0, fz - 2.4]} h={lift - 0.02} />)}
@@ -107,7 +110,7 @@ export const Hotel3D: React.FC<{ lift: number; t: number; jackAngle?: (i: number
         {/* brick mass */}
         <mesh position={[0, y0 + wallH / 2, 0]} castShadow receiveShadow material={mats}><boxGeometry args={[W, wallH, D]} /></mesh>
         {/* corner quoins */}
-        {[-1, 1].map((s) => Array.from({ length: 16 }).map((_, i) => (
+        {[-1, 1].map((s) => Array.from({ length: Math.floor((wallH - 0.6) / 1.2) + 1 }).map((_, i) => (
           <group key={`${s}${i}`}>
             <Box size={[i % 2 ? 0.9 : 0.6, 0.55, 0.16]} p={[s * (sx - (i % 2 ? 0.45 : 0.3)), y0 + 0.6 + i * 1.2, fz + 0.04]} c={STONE} r={0.9} />
             <Box size={[0.16, 0.55, i % 2 ? 0.6 : 0.9]} p={[s * (sx + 0.04), y0 + 0.6 + i * 1.2, fz - (i % 2 ? 0.3 : 0.45)]} c={STONE} r={0.9} />
@@ -138,7 +141,7 @@ export const Hotel3D: React.FC<{ lift: number; t: number; jackAngle?: (i: number
           </group>
         ))}
         {Array.from({ length: cols }).map((_, c) => {
-          const cx = -W / 2 + (c + 0.5) * (W / cols); const door = c === 3 || c === 4;
+          const cx = -W / 2 + (c + 0.5) * (W / cols); const dc = cols / 2 - 1; const door = c === dc || c === dc + 1;
           return (
             <group key={`g${c}`} position={[cx, y0, fz]}>
               <Box size={[W / cols - 0.5, ground - 1.0, 0.06]} p={[0, (ground - 1.0) / 2 + 0.1, 0.04]} c="#eeb260" e="#ff9c38" ei={0.3 + night * 0.5} r={0.5} shadow={false} />
@@ -150,11 +153,11 @@ export const Hotel3D: React.FC<{ lift: number; t: number; jackAngle?: (i: number
               {!door && <Box size={[0.07, ground - 1.9, 0.1]} p={[0, (ground - 1.0) / 2 + 0.5, 0.08]} c="#3a2618" shadow={false} />}
               {door && <>
                 {/* hinged door leaf (opens outward) */}
-                <group position={[c === 3 ? -1.0 : 1.0, 0, 0.1]} rotation={[0, (c === 3 ? -1 : 1) * (c === 3 ? doorOpen : doorOpen * 0.25) * 1.75, 0]}>
-                  <Box size={[2.0, 1.85, 0.07]} p={[c === 3 ? 1.0 : -1.0, 0.1 + 0.925, 0]} c="#7a4a28" r={0.6} />
-                  <Box size={[1.5, 0.6, 0.03]} p={[c === 3 ? 1.0 : -1.0, 0.55, 0.045]} c="#5e361c" r={0.6} shadow={false} />
-                  <Box size={[1.5, 0.75, 0.03]} p={[c === 3 ? 1.0 : -1.0, 1.4, 0.045]} c="#5e361c" r={0.6} shadow={false} />
-                  <Sph rad={0.06} p={[c === 3 ? 1.8 : -1.8, 1.05, 0.07]} c="#d9b44a" m={0.9} r={0.25} />
+                <group position={[c === dc ? -1.0 : 1.0, 0, 0.1]} rotation={[0, (c === dc ? -1 : 1) * (c === dc ? doorOpen : doorOpen * 0.25) * 1.75, 0]}>
+                  <Box size={[2.0, 1.85, 0.07]} p={[c === dc ? 1.0 : -1.0, 0.1 + 0.925, 0]} c="#7a4a28" r={0.6} />
+                  <Box size={[1.5, 0.6, 0.03]} p={[c === dc ? 1.0 : -1.0, 0.55, 0.045]} c="#5e361c" r={0.6} shadow={false} />
+                  <Box size={[1.5, 0.75, 0.03]} p={[c === dc ? 1.0 : -1.0, 1.4, 0.045]} c="#5e361c" r={0.6} shadow={false} />
+                  <Sph rad={0.06} p={[c === dc ? 1.8 : -1.8, 1.05, 0.07]} c="#d9b44a" m={0.9} r={0.25} />
                 </group>
                 <Box size={[W / cols - 0.9, 1.0, 0.08]} p={[0, 2.35, 0.1]} c="#eeb260" e="#ff9c38" ei={0.4 + night * 0.5} shadow={false} />
               </>}
@@ -167,12 +170,12 @@ export const Hotel3D: React.FC<{ lift: number; t: number; jackAngle?: (i: number
         {[-1, 1].map((s) => <Cyl key={s} rt={0.035} h={1.9} p={[s * 2.6, y0 + ground - 0.35, fz + 1.05]} rot={[0.85, 0, 0]} c="#2a2a2e" m={0.6} r={0.4} />)}
         {/* cornice */}
         <Box size={[W + 0.7, 0.3, D + 0.7]} p={[0, y0 + wallH + 0.05, 0]} c={STONE} r={0.9} />
-        {Array.from({ length: 34 }).map((_, i) => <Box key={i} size={[0.26, 0.3, 0.3]} p={[-W / 2 - 0.1 + i * ((W + 0.2) / 33), y0 + wallH + 0.34, fz + 0.38]} c={STONE} r={0.9} />)}
+        {Array.from({ length: 52 }).map((_, i) => <Box key={i} size={[0.26, 0.3, 0.3]} p={[-W / 2 - 0.1 + i * ((W + 0.2) / 51), y0 + wallH + 0.34, fz + 0.38]} c={STONE} r={0.9} />)}
         {[-1, 1].map((s) => Array.from({ length: 18 }).map((_, i) => <Box key={`${s}${i}`} size={[0.3, 0.3, 0.26]} p={[s * (sx + 0.38), y0 + wallH + 0.34, -D / 2 + 0.2 + i * ((D - 0.4) / 17)]} c={STONE} r={0.9} />))}
         <Box size={[W + 1.5, 0.34, D + 1.5]} p={[0, y0 + wallH + 0.66, 0]} c={tint(STONE, 1.03)} r={0.9} />
         <Box size={[W + 0.4, 0.7, D + 0.4]} p={[0, y0 + wallH + 1.15, 0]} c="#8a4636" r={0.95} />
         {/* chimneys + smoke */}
-        {[-7, -2.5, 3, 7.5].map((cx, i) => (
+        {[-12, -7, -2.5, 3, 7.5, 12].map((cx, i) => (
           <group key={cx} position={[cx, y0 + wallH + 1.5, -1.5 + (i % 2) * 2]}>
             <Box size={[0.9, 1.9, 0.9]} p={[0, 0.9, 0]} c="#7e3f32" r={0.95} /><Box size={[1.1, 0.2, 1.1]} p={[0, 1.9, 0]} c={STONE} />
             {[0, 1, 2, 3].map((k) => { const ph = (t * smoke + k / 4 + i * 0.13) % 1; return <Puff key={k} p={[ph * 2.4 + Math.sin(ph * 5 + i) * 0.3, 2.2 + ph * 5, 0]} size={1 + ph * 3.2} color="#c9b6ae" op={(1 - ph) * 0.35} />; })}
@@ -180,7 +183,7 @@ export const Hotel3D: React.FC<{ lift: number; t: number; jackAngle?: (i: number
         ))}
         {/* roof sign */}
         {sign && <group position={[0, y0 + wallH + 2.6, fz - 0.6]}>
-          <mesh castShadow><boxGeometry args={[11, 1.9, 0.16]} /><meshStandardMaterial map={sign} emissiveMap={sign} emissive="#ffffff" emissiveIntensity={0.35} roughness={0.6} /></mesh>
+          <mesh castShadow><boxGeometry args={[14, 2.4, 0.16]} /><meshStandardMaterial map={sign} emissiveMap={sign} emissive="#ffffff" emissiveIntensity={0.35} roughness={0.6} /></mesh>
           {[-4.6, -1.5, 1.5, 4.6].map((px) => <Cyl key={px} rt={0.05} h={1.4} p={[px, -1.4, -0.2]} rot={[0.3, 0, 0]} c="#2a2a2e" />)}
         </group>}
         {/* flag */}

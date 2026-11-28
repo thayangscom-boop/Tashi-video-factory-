@@ -1,0 +1,78 @@
+[
+ {
+  "id": "s1",
+  "scene": "hook",
+  "start": 0.15,
+  "dur": 5.186,
+  "captions": [
+   {
+    "text": "In 1861, Chicago",
+    "start": 0.0,
+    "end": 1.673
+   },
+   {
+    "text": "lifted an ENTIRE hotel",
+    "start": 1.673,
+    "end": 2.844
+   },
+   {
+    "text": "into the air...",
+    "start": 2.844,
+    "end": 3.659
+   },
+   {
+    "text": "with the guests",
+    "start": 3.659,
+    "end": 4.473
+   },
+   {
+    "text": "STILL INSIDE.",
+    "start": 4.473,
+    "end": 5.186
+   }
+  ]
+ },
+ {
+  "id": "s2",
+  "scene": "mud",
+  "start": 5.66,
+  "dur": 7.665,
+  "captions": [
+   {
+    "text": "Chicago was built on",
+    "start": 0.0,
+    "end": 1.336
+   },
+   {
+    "text": "flat, swampy ground,",
+    "start": 1.336,
+    "end": 2.906
+   },
+   {
+    "text": "barely above",
+    "start": 2.906,
+    "end": 3.566
+   },
+   {
+    "text": "Lake Michigan.",
+    "start": 3.566,
+    "end": 4.438
+   },
+   {
+    "text": "When it rained,",
+    "start": 4.438,
+    "end": 5.264
+   },
+   {
+    "text": "the streets turned into",
+    "start": 5.264,
+    "end": 6.49
+   },
+   {
+    "text": "deep, sucking MUD.",
+    "start": 6.49,
+    "end": 7.665
+   }
+  ]
+ }
+]

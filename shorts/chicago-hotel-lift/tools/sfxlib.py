@@ -77,3 +77,31 @@ def note(f, d, kind="pad"):
         return x * np.minimum(1, t / 0.7) * np.minimum(1, (d - t) / 0.7)
     x = sum(np.sin(2 * np.pi * f * m * t) * np.exp(-t * (5 + 3 * m)) / m for m in (1, 2, 3, 4)); return x * np.minimum(1, t / 0.004)
 def hz(n): return 440 * 2 ** ((n - 69) / 12)
+
+# ---- weather, water, mud ----
+def rain(d):
+    n = bp(noise(d), 1200, 9000) * 0.5
+    drops = np.zeros(len(n)); idx = rng.integers(0, max(1, len(n) - 400), int(d * 130))
+    for i in idx: drops[i:i + 300] += np.exp(-np.arange(300) / 40)[:len(drops) - i] * rng.uniform(0.2, 1)
+    return norm(n + 0.6 * hp(drops * rng.standard_normal(len(drops)), 2000))
+def thunder(d=3.2):
+    t = tt(d); x = lp(noise(d), 320) * np.exp(-t * 1.0) * (0.6 + 0.4 * np.abs(lp(noise(d), 6)) * 4)
+    crack = bp(noise(0.12), 800, 5000) * np.exp(-tt(0.12) * 30); x[:len(crack)] += crack * 0.8
+    return norm(x)
+def squelch(d=0.4):
+    t = tt(d); f = 170 + 520 * (t / d) ** 0.6
+    x = np.sin(2 * np.pi * np.cumsum(f) / SR) * (0.5 + 0.5 * lp(noise(d), 40) * 5)
+    return norm(lp(x + 0.5 * lp(noise(d), 900), 1200) * np.sin(np.pi * t / d))
+def gull():
+    d = 0.35; t = tt(d); f = 1900 - 700 * (t / d) + 120 * np.sin(2 * np.pi * 18 * t)
+    return norm(np.sin(2 * np.pi * np.cumsum(f) / SR) * np.sin(np.pi * t / d) ** 1.5)
+def lapping(d):
+    t = tt(d); x = bp(noise(d), 250, 2200) * (0.25 + 0.75 * np.clip(np.sin(2 * np.pi * 0.55 * t), 0, 1) ** 2)
+    return norm(x)
+def clink():
+    d = 0.5; t = tt(d); return norm(sum(np.sin(2 * np.pi * f * t) * np.exp(-t * k) for f, k in ((3100, 9), (4870, 12), (6300, 16))))
+def fade(x, a=0.5, b=0.5):
+    n = len(x); e = np.ones(n); i = int(a * SR); j = int(b * SR)
+    if i: e[:i] = np.linspace(0, 1, i)
+    if j: e[-j:] = np.linspace(1, 0, j)
+    return x * e
