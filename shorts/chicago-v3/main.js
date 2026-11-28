@@ -102,11 +102,11 @@ const SHOT = {
   // 2 — he looks out of the window: the street is sinking
   window(t, u) { setLook('inside', V(IX, INT.Y3 + 1, -2)); const lift = 0.35 * seg(t, 2.6, 4.2); INT.update(lift, 0); const w = C.walter;
     const hip = V(IX - 0.9, INT.Y3 + 0.67 + lift, -INT.RD + 1.5); lie(w, hip, 0, -0.08, t);
-    const lk = seg(t, EV.lookWindow - 0.2, EV.lookWindow + 0.2); headTurn(w, 1.05 * lk, -0.12 * lk); const sh = seg(t, EV.shock, EV.shock + 0.15);
+    const lk = seg(t, EV.lookWindow - 0.2, EV.lookWindow + 0.2); headTurn(w, -0.62 * lk, -0.08 * lk); const sh = seg(t, EV.shock, EV.shock + 0.15);
     arm(w, 'Left', Lw(w, 0.3, 1.05 + sh * 0.35, 0.25)); arm(w, 'Right', Lw(w, -0.3, 1.05 + sh * 0.45, 0.25));
     face(w, t < EV.shock ? 'curious' : 'shocked');
     INT.cup.position.x = IX + 0.62 + Math.sin(t * 60) * 0.006 * (t > 2.8 ? 1 : 0);
-    look(mv(t, 2.5, 4.2, V(IX - 0.1, INT.Y3 + lift + 1.35, 1.2), V(IX - 0.05, INT.Y3 + lift + 1.4, 0.8)), V(IX + 0.35, INT.Y3 + lift + 1.35, -INT.RD + 0.3), 58); },
+    look(mv(t, 2.5, 4.2, V(IX + 0.7, INT.Y3 + lift + 1.45, 0.9), V(IX + 0.55, INT.Y3 + lift + 1.45, 0.55)), V(IX - 1.25, INT.Y3 + lift + 1.45, -INT.RD + 0.6), 52); },
   // 3 — outside: the whole hotel is going up
   hookExt(t, u) { setLook('day', V(0, 4, HZ)); const lift = lerp(0.55, 0.95, u); EXT.update({ westFillH: GRADE, hotelLift: lift, jackAng: t * 3 });
     for (let i = 0; i < 9; i++) barMan(W8[i], t, 2 + i * 2, t * 3, true);
@@ -116,7 +116,7 @@ const SHOT = {
   // 4 — Chicago, 1861: an establishing wide of the low muddy street
   chicago1861(t, u) { setLook('grey', V(-32, 2, 1)); EXT.update({ westFillH: 0, hotelLift: 0 });
     [[C.towns[0], -24, -44, -3.7, 0.2, 1.1], [C.towns[1], -46, -22, 6.2, 0.2, 1.25], [C.towns[3], -40, -20, -3.7, 0.2, 1.0], [C.towns[4], -21, -40, 6.2, 0.2, 1.15]].forEach(([c, a, b, z, y, sp], k) => { stroll(c, t, a, b, z, y, sp, k * 3.1); face(c, 'neutral'); });
-    driverPush(t); look(mv(t, 7.2, 9.4, V(-17, 7.5, 9.5), V(-18, 4.5, 8.0)), mv(t, 7.2, 9.4, V(-34, 0.5, 0.5), V(-33, 1.0, 1)), 50); },
+    driverPush(t); look(mv(t, 7.2, 9.4, V(-16.5, 7.5, 2.8), V(-17.5, 4.6, 2.4)), mv(t, 7.2, 9.4, V(-36, 0.4, 0.8), V(-34, 1.0, 1.2)), 50); },
   // 5 — a gentleman steps off the planks and sinks
   mudGent(t, u) { setLook('grey', V(-28, 1, 0)); EXT.update({ westFillH: 0 }); const g = C.gent;
     const A = [-26.5, -3.6], B = [-26.9, -1.6];
@@ -165,9 +165,8 @@ const SHOT = {
   jacksPlace(t, u) { setLook('pit', V(0, PIT, HZ - 4)); EXT.update({ westFillH: GRADE, hotelLift: 0, jackAng: 0 }); const w = W8[4];
     const push = seg(t, ...EV.jackPush); place(w, -1.2, PIT, HZ + 1.1 - push * 0.5, Math.PI); idle(w, t); crouch(w, 0.32, 0.12, 0.6);
     const jp = V(-1.25, PIT + 0.45, HZ + 0.25 - push * 0.0); arm(w, 'Left', jp.clone().add(V(0.1, 0, 0.18))); arm(w, 'Right', jp.clone().add(V(-0.1, 0, 0.18))); face(w, 'determined');
-    for (let i = 0; i < 4; i++) barMan(W8[6 + i], t, 4 + i * 3, 0, false);
     const back = seg(t, 29.3, 32.6);
-    look(V(lerp(0.4, 1.5, back), PIT + lerp(0.85, 0.85, back), HZ + lerp(0.95, 2.6, back)), V(lerp(-1.25, -1.5, back), PIT + lerp(0.5, 0.75, back), HZ + lerp(0.5, -9, back)), lerp(50, 58, back)); },
+    look(V(lerp(1.3, 1.6, back), PIT + lerp(1.05, 0.9, back), HZ + lerp(1.9, 2.6, back)), V(lerp(-1.2, -1.5, back), PIT + lerp(0.5, 0.75, back), HZ + lerp(0.35, -9, back)), lerp(48, 58, back)); },
   // 12 — hundreds of men, turning together, little by little
   crewTurn(t, u) { setLook('pit', V(-2, PIT, HZ + 1)); const ang = turnAngle(t); EXT.update({ westFillH: GRADE, hotelLift: liftAt(t), jackAng: ang });
     for (let i = 0; i < 12; i++) barMan(W8[i % 12], t, 1 + i * 2, ang, EV.turns.some(s => t > s - 0.1 && t < s + 0.6));
@@ -184,7 +183,7 @@ const SHOT = {
     [[C.towns[0], -7, 'shocked'], [C.towns[4], 6.5, 'happy']].forEach(([c, x, f], k) => { place(c, x, BW, TZ1 + 1.0, Math.PI); idle(c, t); headTurn(c, 0, -0.3); face(c, f); });
     dust.forEach((d, i) => { const ph = (t * 0.7 + rnd(i)) % 1; d.visible = true; d.position.set(-W / 2 + rnd(i * 3) * W, lift - 0.1 - ph * 1.5, HZ + 0.3 + ph * 1.2); d.scale.setScalar(0.6 + ph * 2.5); d.material.opacity = (1 - ph) * 0.35; });
     gaugeFt = clamp(lift / GRADE) * 6.2;
-    look(mv(t, 36.4, 40.0, V(-11, GRADE + 1.2, TZ1 + 14), V(-9, GRADE + 2.4, TZ1 + 12.5)), V(0, 7, HZ - 2), 54); },
+    look(mv(t, 36.4, 40.0, V(-9.5, GRADE + 1.4, TZ1 + 10.5), V(-8.0, GRADE + 2.4, TZ1 + 9.6)), V(-0.5, 6.5, HZ - 2), 60); },
   // 14 — the hotel stayed open
   lobbyOpen(t, u) { setLook('inside', V(IX, 1, -2)); INT.update(0.4, 0); const cl = C.clerk, gst = C.towns[1];
     place(cl, IX + 0.6, 0.4, -2.85, 0); idle(cl, t); face(cl, 'happy'); const ding = seg(t, EV.bell - 0.2, EV.bell) * (1 - seg(t, EV.bell + 0.1, EV.bell + 0.3));

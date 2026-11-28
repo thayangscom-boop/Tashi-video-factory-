@@ -64,7 +64,7 @@ function hotel(G) {
   const winG = new THREE.BoxGeometry(1.05, 1.75, 0.08), surG = new THREE.BoxGeometry(1.35, 2.1, 0.12), sillG = new THREE.BoxGeometry(1.55, 0.12, 0.3), capG = new THREE.BoxGeometry(1.6, 0.22, 0.25);
   const slots = []; const cols = 9;
   for (let f = 1; f < floors; f++) for (let c = 0; c < cols; c++) slots.push([-W / 2 + (c + 0.5) * (W / cols), 0.6 + gh + (f - 1) * fh + 1.35, 0.01, 0, rnd(f * 17 + c) < 0.55]);
-  for (const s of [-1, 1]) for (let f = 1; f < floors; f++) for (let c = 0; c < 6; c++) slots.push([s * (W / 2 + 0.01), 0.6 + gh + (f - 1) * fh + 1.35, -D / 2 + (c + 0.5) * (D / 6) - D / 2 + D / 2, s * Math.PI / 2, rnd(f * 23 + c + s) < 0.5]);
+  for (const s of [-1, 1]) for (let f = 1; f < floors; f++) for (let c = 0; c < 6; c++) slots.push([s * (W / 2 + 0.01), 0.6 + gh + (f - 1) * fh + 1.35, -D + (c + 0.5) * (D / 6), s * Math.PI / 2, rnd(f * 23 + c + s) < 0.5]);
   const mk = (geo, mat, n) => { const m = new THREE.InstancedMesh(geo, mat, n); m.castShadow = false; m.receiveShadow = true; g.add(m); return m; };
   const nL = slots.filter(s => s[4]).length, nD = slots.length - nL; const IL = mk(winG, glassLit, nL), ID = mk(winG, glassDark, nD), IS = mk(surG, stone, slots.length), IC = mk(capG, stone, slots.length), IT = mk(sillG, stone, slots.length);
   const M = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = V(1, 1, 1); let li = 0, di = 0;
@@ -153,7 +153,7 @@ export async function buildExterior(scene) {
   const wheels = []; for (const [x, z] of [[-1.05, 0.85], [1.05, 0.85], [-1.05, -0.85], [1.05, -0.85]]) { const wh = new THREE.Group(); wh.position.set(x, 0.58, z); wagon.add(wh); const tr = new THREE.Mesh(new THREE.TorusGeometry(0.55, 0.06, 6, 22), tm('#3a2516')); tr.castShadow = true; wh.add(tr); for (let k = 0; k < 4; k++) { const sp = new THREE.Mesh(new THREE.BoxGeometry(1.08, 0.05, 0.05), tm('#5a3a22')); sp.rotation.z = k * Math.PI / 4; wh.add(sp); } wheels.push(wh); }
   for (let i = 0; i < 3; i++) { const b = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 0.8, 12), tm('#8a5c34')); b.position.set(-0.5 + i * 0.5, 1.48, (i % 2) * 0.3 - 0.15); b.castShadow = true; wagon.add(b); }
   boxIn(wagon, 1.6, 0.08, 0.08, tm('#5a3a22'), -2.3, 0.85, 0, {}).rotation.z = -0.25;
-  const lamps = []; for (const [x, y, z] of [[-24, 0.2, -3.2], [-40, 0.2, -3.2], [-12, GRADE, TZ1 + 2.4], [12, GRADE, TZ1 + 2.4]]) { const lg = new THREE.Group(); lg.position.set(x, y, z); G.add(lg); boxIn(lg, 0.1, 3.2, 0.1, tm('#1e2226', { m: 0.6 }), 0, 1.6, 0); const gl = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.13, 0.4, 4), tm('#ffd98a', { e: '#ffb347', ei: 0.4 })); gl.position.y = 3.4; lg.add(gl); lamps.push(gl); }
+  const lamps = []; for (const [x, y, z] of [[-24, 0.2, -3.2], [-40, 0.2, -3.2], [-14.5, GRADE, TZ1 + 2.4], [14.5, GRADE, TZ1 + 2.4]]) { const lg = new THREE.Group(); lg.position.set(x, y, z); G.add(lg); boxIn(lg, 0.1, 3.2, 0.1, tm('#1e2226', { m: 0.6 }), 0, 1.6, 0); const gl = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.13, 0.4, 4), tm('#ffd98a', { e: '#ffb347', ei: 0.4 })); gl.position.y = 3.4; lg.add(gl); lamps.push(gl); }
   // engineer's easel with the plan (west block), a dirt pile, shovels
   const easel = new THREE.Group(); easel.position.set(-23.5, 0, 3.6); easel.rotation.y = -0.6; G.add(easel);
   for (const s of [-1, 1]) boxIn(easel, 0.05, 1.7, 0.05, tm('#6a4a2c'), s * 0.4, 0.85, 0, {}).rotation.z = s * 0.08;
