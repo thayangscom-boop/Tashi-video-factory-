@@ -46,3 +46,18 @@ Other commands:
 - **Change the words:** edit `production/lines.json`. `captions` holds the on-screen chunks (words in ALL CAPS are highlighted). `tts` is an optional spelling used only for pronunciation. Then rerun `tools/build.sh`. Scene lengths, caption timing and SFX placement all follow the new narration automatically.
 - **Caption timing** is estimated from character counts within each narration line, not from word-level forced alignment.
 - **Characters:** `CAST` in `src/components/Person.tsx`. Poses are numeric, so they interpolate cleanly.
+
+## V2: 3D engine (look-dev)
+The skill was upgraded to `viral-animated-shorts-studio` (V2), which asks for dimensional animation. The 3D engine is in `src/three/`:
+
+- `kit.tsx`: helpers (IK, easing, camera, procedural textures, sky, glow)
+- `Character3D.tsx`: the 3D character rig and cast
+- `sets.tsx`: hotel, jackscrews, cribbing, street set, props
+- `ExteriorShot.tsx`, `RoomShot.tsx`: the three preview shots
+- `PreviewV2.tsx`: the preview composition (the hook, 5.7 s)
+
+```bash
+CHROME=/path/to/chrome npm run preview3d      # renders output/preview_v2.mp4
+tools/stills3d.sh PreviewV2 12 75 128         # QC stills in output/qc3d/
+```
+3D compositions must be rendered with `--gl=angle --concurrency=1` (see `production/style-bible-v2.md`).

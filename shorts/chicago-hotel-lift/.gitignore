@@ -3,4 +3,5 @@ tools/voices/
 output/*
 !output/short.mp4
 !output/poster.png
+!output/preview_v2.mp4
 public/audio/vo_*.wav
