@@ -37,10 +37,14 @@ def stroke(t, g=1.0, inside=False):
     put(sfx, t, S.crew_ratchet(pull, 45), 0.44 * g); put(sfx, t + 0.04, S.creak(pull + 0.5, 78), 0.36 * g)
     put(sfx, t + pull - 0.03, S.thud(0.4, 52), 0.26 * g); put(sfx, t + 0.1, S.dust(1.0), 0.07 * g)
 put(sfx, 0.0, S.thud(0.7, 45), 0.35)                       # opens on a low hit
-stroke(strokes[0]); stroke(strokes[1]); stroke(strokes[2], 1.1)
+stroke(strokes[0], 0.75); stroke(strokes[1]); stroke(strokes[2], 1.1)   # the first is heard from across the street
+hv = TL["hooves"]; k = 0
+while hv["t0"] + k * hv["step"] < cuts[1] - 0.05:              # the wagon horse walking past the camera (two hooves land per beat)
+    put(sfx, hv["t0"] + k * hv["step"], S.hoof(True), 0.30); put(sfx, hv["t0"] + k * hv["step"] + 0.13, S.hoof(True), 0.22); k += 1
+put(amb, 0, S.fade(S.cart(cuts[1] + 0.1), 0.2, 0.25), 0.14)
 k = 0
-while 0.2 + k * 0.4 < cuts[2] - 0.2:                        # the timber gang's boots in the trench
-    put(sfx, 0.2 + k * 0.4, S.footstep(False), 0.10); k += 1
+while cuts[1] + 0.2 + k * 0.4 < cuts[2] - 0.2:                        # the timber gang's boots in the trench
+    put(sfx, cuts[1] + 0.2 + k * 0.4, S.footstep(False), 0.10); k += 1
 # ---- shot 3: inside, with the guests ----
 seg_amb(cuts[2], cuts[3], S.lp(S.murmur(cuts[3] - cuts[2] + 0.2), 500), 0.04)
 put(sfx, cuts[2] + 0.45, S.clink(), 0.07)                  # cup lifted from its saucer
@@ -60,7 +64,7 @@ while w["t0"] + k * w["step"] <= w["t1"] + 0.01:
     put(sfx, w["t0"] + k * w["step"], S.squelch(0.34), 0.34 + 0.08 * k); k += 1     # each step sinks deeper and sounds it
 put(sfx, TL["tug"] - 0.25, S.squelch(0.5), 0.6); put(sfx, TL["tug"] + 0.05, S.squelch(0.3), 0.3)   # he heaves; the mud holds
 put(sfx, TL["slump"], S.squelch(0.3), 0.2)
-for h in TL["wagonHeave"]: put(sfx, h - 0.25, S.creak(0.7, 130), 0.14); put(sfx, h, S.squelch(0.3), 0.1)
+for h in TL["wagonHeave"]: put(sfx, h - 0.25, S.creak(0.7, 130), 0.14); put(sfx, h, S.squelch(0.3), 0.1); put(sfx, h - 0.1, S.snort(), 0.13)   # the horse throws itself into the collar
 
 # ---- music: driving for the hook, open for the town, uneasy in the rain ----
 beat = 60 / 96; bar = 4 * beat

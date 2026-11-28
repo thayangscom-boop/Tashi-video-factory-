@@ -7,6 +7,7 @@ import { CrewRow, FZ, Neighbor, PitStreet, SX } from './liftSet';
 import { STREET } from './liftWorld';
 import TLjson from './openTimeline.json';
 import { Barrel, HOTEL, Hotel3D, Lamp3D, Wagon3D } from './sets';
+import { Horse, HorseWagon } from './life';
 
 export const OT = TLjson;
 const BW = STREET + 0.12;
@@ -38,13 +39,14 @@ const Walker: React.FC<{ t: number; frame: number; i: number; z: number; y: numb
 
 /* ================================================================== */
 /** Shots 1-2: the hotel on its jacks. 'wide' sells the scale, 'crew' shows the work. */
-export const HookShot: React.FC<{ t: number; frame: number; shot: 'wide' | 'crew' }> = ({ t, frame, shot }) => {
+export const HookShot: React.FC<{ t: number; frame: number; shot: 'establish' | 'wide' }> = ({ t, frame, shot }) => {
   const lift = liftAt(t); const jolt = joltAt(t); const tod = 0.42;
   const frontXs = useMemo(() => Array.from({ length: 25 }).map((_, k) => -SX + 0.9 + k * 1.175), []);
   const sideXs = useMemo(() => Array.from({ length: 9 }).map((_, k) => -5.2 + k * 1.3), []);
   const cam = shot === 'wide'
-    ? { pos: key3(t, [[0, [SX + 1.5, 1.5, FZ + 2.7]], [2.4, [SX + 1.7, 3.0, FZ + 2.85]]]) as V3, look: key3(t, [[0, [-1, 6.2, FZ - 0.8]], [2.4, [-1, 7.4, FZ - 0.8]]]) as V3, fov: 64 }
-    : { pos: key3(t, [[2.3, [-3.2, 1.75, FZ + 3.1]], [3.9, [-4.3, 1.7, FZ + 3.05]]]) as V3, look: key3(t, [[2.3, [-9.6, 1.15, FZ + 0.2]], [3.9, [-10.7, 1.2, FZ + 0.2]]]) as V3, fov: 46 };
+    ? { pos: key3(t, [[1.85, [SX + 1.5, 1.5, FZ + 2.7]], [3.9, [SX + 1.7, 2.9, FZ + 2.85]]]) as V3, look: key3(t, [[1.85, [-1, 6.0, FZ - 0.8]], [3.9, [-1, 7.2, FZ - 0.8]]]) as V3, fov: 64 }
+    // establishing: low on the new street, far enough back that the whole hotel towers over the people at its foot
+    : { pos: key3(t, [[0, [-17, BW + 1.0, FZ + 35]], [1.95, [-15.4, BW + 1.4, FZ + 32.2]]]) as V3, look: key3(t, [[0, [-2, 10.0, 0]], [1.95, [-2, 10.7, 0]]]) as V3, fov: 58 };
   const sk = jolt * 0.025; cam.pos = [cam.pos[0] + Math.sin(t * 61) * sk, cam.pos[1] + Math.cos(t * 53) * sk, cam.pos[2]];
   const DAY: [number, string][] = [[0, '#2f62ad'], [0.3, '#6f9bd6'], [0.43, '#bcd3ea'], [0.5, '#e9e6da'], [0.56, '#b9a58c'], [1, '#6a5a4a']];
   const DUSK = ['#27437c', '#5d6ea6', '#e79a78', '#ffd6a0', '#f0a070', '#6a4a48'];
@@ -53,20 +55,36 @@ export const HookShot: React.FC<{ t: number; frame: number; shot: 'wide' | 'crew
   const chop = STROKES.reduce((m, s) => Math.max(m, seg(t, s - 0.06, s + 0.04) * (1 - seg(t, s + 0.25, s + 0.45))), 0);
   const gasp = STROKES.reduce((m, s) => Math.max(m, seg(t, s + 0.1, s + 0.3) * (1 - seg(t, s + 0.7, s + 0.95))), 0);
   // two men carrying a long timber along the trench; a third stacking cribbing
-  const cx = -17.5 + t * 1.25; const cph = (t * 1.25 * Math.PI) / (2 * 0.3);
+  const cx = 3 + t * 1.25; const cph = (t * 1.25 * Math.PI) / (2 * 0.3);
   const stack = (t * 0.9) % 1; const reach = Math.sin(clamp(stack / 0.5) * Math.PI); const place = seg(stack, 0.5, 0.8) * (1 - seg(stack, 0.9, 1));
   return (
     <>
       <Cam pos={cam.pos} look={cam.look} fov={cam.fov} />
       <fog attach="fog" args={[mixC('#cfdbe6', '#e6a888', tod), 34, 230]} />
       <SkyDome stops={stops} sun={{ dir: [0.55, 0.3, -0.83], color: '#ffe9c0', size: 240 }} />
-      <hemisphereLight args={['#b4cdfd', '#8c6a4c', 0.9]} />
-      <Sun dir={[-0.55, 0.6, 0.6]} focus={shot === 'wide' ? [2, 6, FZ + 2] : [-8, 1.5, FZ + 1.5]} extent={shot === 'wide' ? 30 : 12} color="#ffd9a6" intensity={3.0} map={shot === 'wide' ? 4096 : 2048} />
+      <hemisphereLight args={['#bcd3ff', '#9a7858', 1.15]} />
+      {/* a high sun reaches down into the trench, so the crew are lit instead of lost in the wall's shadow */}
+      <Sun dir={[-0.36, 0.85, 0.4]} focus={shot === 'wide' ? [2, 6, FZ + 2] : [-5, 6, FZ + 12]} extent={shot === 'wide' ? 30 : 42} color="#ffe2b8" intensity={3.2} map={4096} />
+      {shot === 'wide' && [4, 11].map((x) => <pointLight key={x} position={[x, 2.2, FZ + 2.6]} color="#ffd9a8" intensity={5} distance={9} decay={2} />)}
       <directionalLight position={[30, 22, -40]} color="#8fb2ff" intensity={0.9} />
       <PitStreet t={t} tod={tod} lift={lift} lamps={false} />
       <Hotel3D lift={lift} t={t} ownJacks={false} deepRows night={0.35} shake={jolt * 0.01} />
-      <group position={[0, 0, FZ]}><CrewRow t={t} frame={frame} lift={lift} xs={frontXs} bar={bar} eff={eff} /></group>
-      {shot === 'wide' && <group position={[-SX, 0, 0]} rotation={[0, -Math.PI / 2, 0]}><CrewRow t={t} frame={frame} lift={lift} xs={sideXs} seed={30} bar={bar} eff={eff} /></group>}
+      <group position={[0, 0, FZ]}><CrewRow t={t} frame={frame} lift={lift} xs={frontXs} bar={bar} eff={eff} variety /></group>
+      {shot === 'establish' && <>
+        {/* street life in front of the camera: wagons, people stopping to stare */}
+        <HorseWagon p={[-19.2 + t * 1.6, STREET, FZ + 26]} rotY={Math.PI / 2} dist={t * 1.6 + 3} frame={frame} seed={1} load="barrels" coat={0} t={t} />
+        <HorseWagon p={[-3.5 - t * 1.5, STREET, FZ + 13.5]} rotY={-Math.PI / 2} dist={t * 1.5 + 1} frame={frame} seed={2} load="timber" coat={3} t={t} />
+        <Lamp3D p={[-20.6, STREET, FZ + 29.5]} on={0.4} light={false} />
+        {([[-12.6, 22.5, 2.75, PEDS[1]], [-11.5, 22.9, 2.9, PEDS[2]]] as [number, number, number, Look3][]).map(([x, z, r, lk], i) => (
+          <Character3D key={i} frame={frame} seed={70 + i} pos={[x, STREET, FZ + z]} rotY={r} look={lk}
+            pose={i === 0 ? { handR: V(0.2, lerp(1.0, 1.75, settle(t, 0.75, 0.4)), 0.4), headPitch: -0.45, lean: -0.08, open: 0.4 * gasp, brow: 0.8, hipY: STAND_HIP - 0.01 }
+              : { handR: V(0.17, lerp(1.0, 1.82, settle(t, 0.95, 0.4)), 0.14), headPitch: -0.5, lean: -0.1 - gasp * 0.06, brow: 0.6, footL: V(-0.12, 0.07, -gasp * 0.12), hipY: STAND_HIP - 0.01 }} />))}
+        <Walker t={t} frame={frame} i={6} z={FZ + 19} y={STREET} speed={1.3} span={[-22, 6]} />
+        <Walker t={t} frame={frame} i={7} z={FZ + 16.5} y={STREET} speed={2.4} span={[-16, 10]} look={{ ...CAST3.worker2, rolled: false }} extra={{ lean: 0.2 }} />
+        {/* dust boiling up out of the trench on each turn: the first sign that something enormous is moving */}
+        {STROKES.map((s, si) => Array.from({ length: 26 }).map((_, i) => { const u = clamp((t - s - 0.1 - rnd(i + si) * 0.15) / 1.6); if (u <= 0 || u >= 1) return null;
+          return <Puff key={`e${si}-${i}`} p={[-SX + rnd(i * 3 + si) * HOTEL.W, 1.5 + u * (3.5 + rnd(i) * 2.5), FZ + 0.8 + rnd(i * 5) * 2.2]} size={1.2 + u * 3.2} color="#e8d4b4" op={Math.sin(u * Math.PI) * 0.4} />; }))}
+      </>}
       {/* timber gang */}
       {[0, 1].map((i) => <Character3D key={i} frame={frame} seed={80 + i} pos={[cx - i * 2.6, 0, FZ + 1.5]} rotY={Math.PI / 2} look={[CAST3.worker2, CAST3.worker1][i]}
         pose={{ ...walkPose(cph + i * Math.PI, 0.3, { arms: false, lean: 0.1 }), handR: V(0.2, 1.42, 0.1), handL: V(-0.02, 1.4, 0.16), headYaw: -0.25, side: -0.05 }} />)}
@@ -164,7 +182,10 @@ export const LakeTownShot: React.FC<{ t: number; frame: number }> = ({ t, frame 
       {/* reeds along the shore and in the wet ground */}
       {reeds.map((r, i) => <Cyl key={i} rt={0.01} rb={0.06} h={r.h} p={[r.x, LAND + r.h / 2 - (r.z > 6 ? 0.3 : 0), r.z]} rot={[Math.sin(t * 2 + i) * 0.1, 0, Math.cos(t * 1.7 + i) * 0.12]} c={i % 3 ? '#5c6e34' : '#8a8a48'} seg={4} shadow={false} />)}
       {/* life on the shore road: a wagon and people on foot */}
-      <group position={[-40 + ((t - 5.4) * 2.2), LAND, 2.4]}><Wagon3D p={[0, 0, 0]} rotY={0} /></group>
+      <HorseWagon p={[-34 + (t - 5.4) * 1.7, LAND, 2.6]} rotY={Math.PI / 2} dist={(t - 5.4) * 1.7} frame={frame} seed={3} load="sacks" coat={1} t={t} />
+      <HorseWagon p={[26 - (t - 5.4) * 1.5, LAND, 5.4]} rotY={-Math.PI / 2} dist={(t - 5.4) * 1.5 + 2} frame={frame} seed={4} load="crates" coat={2} t={t} />
+      {[[12.2, 26.5, 2.7], [13.4, 24.6, 2.2], [5.6, 27.8, 1.9]].map(([x, z, h], i) => <group key={i}><Cyl rt={0.14} rb={0.17} h={h} p={[x, h / 2 - 0.3, z]} c="#5a4430" r={0.95} /><Cyl rt={0.16} h={0.08} p={[x, h - 0.3, z]} c="#3a2a1e" /></group>)}
+      {Array.from({ length: 26 }).map((_, i) => { const h = 1.4 + rnd(i * 2.3) * 1.3; return <Cyl key={`fr${i}`} rt={0.012} rb={0.05} h={h} p={[4.2 + rnd(i * 1.9) * 3.2, h / 2 - 0.2, 27.4 + rnd(i * 4.3) * 2.4]} rot={[Math.sin(t * 2 + i) * 0.12, 0, Math.cos(t * 1.7 + i) * 0.14]} c={i % 3 ? '#5c6e34' : '#8a8a48'} seg={4} shadow={false} />; })}
       {[0, 1, 2, 3, 4].map((i) => <Walker key={i} t={t} frame={frame} i={i} z={3.6 - (i % 2) * 2.2} y={LAND} speed={1.2 + i * 0.1} span={[-24, 30]} />)}
       {/* gulls */}
       {Array.from({ length: 6 }).map((_, i) => { const bx = -14 + ((t * 4 + i * 6) % 40), by = 5 + i * 1.6 + Math.sin(t * 1.6 + i) * 0.8, fl = Math.sin(t * 9 + i * 2) * 0.6;
@@ -201,15 +222,17 @@ export const MudStreetShot: React.FC<{ t: number; frame: number }> = ({ t, frame
       headPitch: lerp(0.45, -0.1, slump) - tug * 0.4, headYaw: slump * 0.25, smile: lerp(-0.9, -0.4, slump), open: tug * 0.7, mouthW: 1.1, brow: 1 - slump * 0.6, browTilt: 1 - slump, eyes: 1 + tug * 0.3,
     };
   const heave = OT.wagonHeave.reduce((m, h) => Math.max(m, seg(t, h - 0.3, h) * (1 - seg(t, h + 0.15, h + 0.5))), 0);
-  const cam = { pos: key3(t, [[10.0, [-5.2, 2.0, 10.2]], [12.2, [-3.6, 1.6, 6.4]], [13.9, [-2.4, 1.4, 3.9]]]) as V3, look: key3(t, [[10.0, [0.4, 1.5, -5]], [12.2, [-1.2, 1.0, -1.8]], [13.9, [-1.5, 0.85, -1.5]]]) as V3 };
+  const HX = -3.0;
+  const cam = { pos: key3(t, [[10.0, [-6.6, 2.0, 10.4]], [12.2, [-5.2, 1.65, 6.8]], [13.9, [-4.2, 1.5, 4.4]]]) as V3, look: key3(t, [[10.0, [-0.8, 1.6, -5]], [12.2, [-2.4, 1.15, -2.2]], [13.9, [-2.9, 1.0, -1.6]]]) as V3 };
   const rows: [number, number, number, string, string, number, boolean][] = [[-27, 11, 9, '#8c6a4a', 'DRY GOODS', 3, true], [-14.5, 12, 12, '#7a5a5a', 'HARDWARE', 5, false], [-1.5, 12.5, 8.5, '#9a6a4c', 'BOOTS & SHOES', 7, false], [11.5, 11, 11, '#86745a', 'SALOON', 9, true], [24, 12, 9.5, '#7d6a58', 'GROCER', 11, true]];
   return (
     <>
       <Cam pos={cam.pos} look={cam.look} fov={44} />
-      <fog attach="fog" args={['#77828c', 14, 85]} />
+      <fog attach="fog" args={['#8a949c', 18, 95]} />
       <SkyDome stops={[[0, '#3a4452'], [0.35, '#59636e'], [0.5, '#8b949a'], [0.56, '#6a7178'], [1, '#3a4046']]} />
-      <hemisphereLight args={['#aab8ca', '#4a4038', 1.05 + flash * 2.5]} />
-      <Sun dir={[-0.35, 0.8, 0.45]} focus={[-1, 1, -2]} extent={18} color="#b9c4d2" intensity={1.1 + flash * 5} />
+      <hemisphereLight args={['#b8c6d8', '#5a4e44', 1.4 + flash * 2.5]} />
+      <Sun dir={[-0.35, 0.8, 0.45]} focus={[-1, 1, -2]} extent={18} color="#c6d0dc" intensity={1.5 + flash * 5} />
+      <Lamp3D p={[-6.9, 0.3, 7.3]} on={1} light />
       <directionalLight position={[10, 6, -20]} color="#8fa4c8" intensity={0.5} />
       {/* the street */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow><planeGeometry args={[160, 60]} /><Mat c="#ffffff" map={mud} bump={mud} bs={2.2} r={0.32} m={0.15} /></mesh>
@@ -226,17 +249,18 @@ export const MudStreetShot: React.FC<{ t: number; frame: number }> = ({ t, frame
       <group position={[-1.2, 0.3, 7.3]}>{[-1.4, 1.4].map((x) => <Box key={x} size={[0.14, 1.1, 0.14]} p={[x, 0.55, 0]} c="#5a4430" />)}<Box size={[3.1, 0.12, 0.12]} p={[0, 1.0, 0]} c="#6a5038" /></group>
       {/* a wagon bogged to the axles; its driver throws his weight at the wheel */}
       <group position={[2.9, -0.34, -4.2]} rotation={[0.03 + heave * 0.02, -0.2, 0.06 - heave * 0.03]}><Wagon3D p={[0, 0, 0]} /></group>
-      <Character3D frame={frame} seed={90} pos={[0.75, -0.22, -3.5]} rotY={1.35} look={{ ...CAST3.worker1, coat: '#6a5a4a' }}
+      <Horse p={[-0.6 - heave * 0.12, -0.24, -3.55]} rotY={-Math.PI / 2 - 0.2} dist={Math.sin(t * 3.1) * 0.16 + heave * 0.25} coat={1} strain={0.45 + heave * 0.55} t={t} />
+      <Character3D frame={frame} seed={90} pos={[4.6, -0.22, -3.2]} rotY={-1.75} look={{ ...CAST3.worker1, coat: '#6a5a4a' }}
         pose={{ hipY: STAND_HIP - 0.22 - heave * 0.08, lean: 0.55 + heave * 0.25, handL: V(-0.18, 0.95, 0.5 + heave * 0.06), handR: V(0.18, 1.05, 0.5 + heave * 0.06), footL: V(-0.16, 0.07, -0.42 - heave * 0.12), footR: V(0.16, 0.07, 0.1), headPitch: 0.25, smile: -0.9, open: heave * 0.4, browTilt: 1, eyes: 1 - heave * 0.5 }} />
       {/* passers-by keeping to the planks: one under an umbrella, one running for cover with a hand on his hat */}
       <Walker t={t} frame={frame} i={0} z={-7.3} y={0.3} speed={1.15} span={[-18, 16]} look={CAST3.lady}
         extra={{ handR: V(0.2, 1.3, 0.25), propR: <group rotation={[0, 0, 0]}><Cyl rt={0.012} h={1.0} p={[0, 0.45, 0]} c="#3a2a1e" /><Cyl rt={0.02} rb={0.62} h={0.24} p={[0, 0.95, 0]} c="#2c3a4a" r={0.7} seg={10} /></group> }} />
       <Walker t={t} frame={frame} i={1} z={-7.9} y={0.3} speed={2.6} span={[-10, 26]} look={PEDS[3]} extra={{ handR: V(0.17, 1.86, 0.12), lean: 0.22, headPitch: 0.2, smile: -0.3 }} />
       {/* the gentleman */}
-      <Character3D frame={frame} seed={95} pos={[-1.5, onWalk - depth, hz]} rotY={0} look={CAST3.gent} pose={hero} />
+      <Character3D frame={frame} seed={95} pos={[HX, onWalk - depth, hz]} rotY={0} look={CAST3.gent} pose={hero} />
       {/* mud closes round his legs; bubbles and ripples where he is stuck */}
-      {depth > 0.05 && [0, 1, 2].map((k) => { const u = (t * 1.3 + k / 3) % 1; return <mesh key={k} rotation={[-Math.PI / 2, 0, 0]} position={[-1.5, 0.02, hz + 0.05]}><ringGeometry args={[0.25 + u * 0.5, 0.29 + u * 0.5, 24]} /><meshBasicMaterial color="#8a7a66" transparent opacity={(1 - u) * 0.6} /></mesh>; })}
-      {tug > 0.3 && Array.from({ length: 8 }).map((_, i) => <Sph key={i} rad={0.035} p={[-1.5 + Math.cos(i) * (0.2 + tug * 0.25), 0.05 + Math.sin(tug * Math.PI) * (0.15 + rnd(i) * 0.25), hz + Math.sin(i) * (0.2 + tug * 0.25)]} c="#3a2a1c" r={0.4} shadow={false} />)}
+      {depth > 0.05 && [0, 1, 2].map((k) => { const u = (t * 1.3 + k / 3) % 1; return <mesh key={k} rotation={[-Math.PI / 2, 0, 0]} position={[HX, 0.02, hz + 0.05]}><ringGeometry args={[0.25 + u * 0.5, 0.29 + u * 0.5, 24]} /><meshBasicMaterial color="#8a7a66" transparent opacity={(1 - u) * 0.6} /></mesh>; })}
+      {tug > 0.3 && Array.from({ length: 8 }).map((_, i) => <Sph key={i} rad={0.035} p={[HX + Math.cos(i) * (0.2 + tug * 0.25), 0.05 + Math.sin(tug * Math.PI) * (0.15 + rnd(i) * 0.25), hz + Math.sin(i) * (0.2 + tug * 0.25)]} c="#3a2a1c" r={0.4} shadow={false} />)}
       {/* rain: streaks, splashes on the puddles, runoff from the awnings */}
       {Array.from({ length: 340 }).map((_, i) => { const y = 9 - ((t * 15 + rnd(i) * 9) % 9); return <Box key={i} size={[0.012, 0.55, 0.012]} p={[-13 + rnd(i * 3.3) * 26 + y * 0.12, y, -9 + rnd(i * 7.1) * 18]} rot={[0, 0, -0.12]} c="#dfe9f5" op={0.42} shadow={false} recv={false} />; })}
       {Array.from({ length: 34 }).map((_, i) => { const u = (t * 2.6 + rnd(i)) % 1; return <mesh key={`s${i}`} rotation={[-Math.PI / 2, 0, 0]} position={[-12 + rnd(i * 3.7) * 24, 0.025, -5.5 + rnd(i * 9.1) * 12]}><ringGeometry args={[u * 0.22, u * 0.22 + 0.025, 16]} /><meshBasicMaterial color="#dfe9f5" transparent opacity={(1 - u) * 0.6} /></mesh>; })}

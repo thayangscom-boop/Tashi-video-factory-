@@ -105,3 +105,9 @@ def fade(x, a=0.5, b=0.5):
     if i: e[:i] = np.linspace(0, 1, i)
     if j: e[-j:] = np.linspace(1, 0, j)
     return x * e
+
+def snort(d=0.35):
+    t = tt(d); x = bp(noise(d), 200, 1800) * (0.5 + 0.5 * np.sign(np.sin(2 * np.pi * 26 * t))) * np.sin(np.pi * t / d) ** 0.7
+    return norm(x)
+def hoof(soft=False):
+    return norm(lp(noise(0.1), 420) * np.exp(-tt(0.1) * 45)) if soft else norm(wood_knock(240 + rng.uniform(-30, 30)) * 0.6 + thud(0.16, 95)[:int(0.16 * SR)] * 0.6)

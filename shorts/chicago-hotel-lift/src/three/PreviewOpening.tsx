@@ -12,8 +12,8 @@ import caps from './openCaptions.json';
 export const OPENING_FRAMES = Math.round(OT.duration * OT.fps);
 const GL = { antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 0.95 };
 const Shot: React.FC<{ k: number; t: number; frame: number }> = ({ k, t, frame }) =>
-  k === 0 ? <HookShot t={t} frame={frame} shot="wide" />
-    : k === 1 ? <HookShot t={t} frame={frame} shot="crew" />
+  k === 0 ? <HookShot t={t} frame={frame} shot="establish" />
+    : k === 1 ? <HookShot t={t} frame={frame} shot="wide" />
       : k === 2 ? <RoomShot t={t - OT.cuts[2]} frame={frame} joltT={OT.roomJolt - OT.cuts[2]} />
         : k === 3 ? <LakeTownShot t={t} frame={frame} /> : <MudStreetShot t={t} frame={frame} />;
 

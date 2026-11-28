@@ -4,6 +4,7 @@ import { CAST3, Character3D, Look3, Pose3, STAND_HIP, toLocal } from './Characte
 import { Box, Cyl, Glow, Mat, Puff, Sph, V, V3, dirtDraw, lerp, plankDraw, rnd, tint, useTex } from './kit';
 import { STREET, barAngle, effort, inLapse, manOff } from './liftWorld';
 import { Barrel, Crib, HOTEL, Jack, Lamp3D, Wagon3D } from './sets';
+import { crewLook, crewScale } from './life';
 
 const { W, D } = HOTEL;
 export const FZ = D / 2; // z of the hotel's front wall
@@ -47,7 +48,13 @@ export const Neighbor: React.FC<{ p: V3; size: V3; wall: string; sign: string | 
       <mesh position={[0, h / 2, d / 2 + 0.02]} receiveShadow><planeGeometry args={[w, h]} /><meshStandardMaterial map={tex.map} emissiveMap={tex.emap} emissive="#ffffff" emissiveIntensity={0.15 + night * 1.4} roughness={0.9} /></mesh>
       <Box size={[w + 0.5, 0.35, d + 0.5]} p={[0, h + 0.1, 0]} c={tint(wall, 0.6)} />
       <Box size={[w + 0.2, 0.6, 0.3]} p={[0, h - 0.5, d / 2 + 0.15]} c={tint(wall, 1.15)} />
-      {awning && <Box size={[w * 0.9, 0.1, 1.7]} p={[0, h * 0.3 + 0.3, d / 2 + 0.8]} rot={[0.3, 0, 0]} c={awning} r={1} />}
+      {awning && <group position={[0, 0, d / 2]}>
+        <Box size={[w * 0.96, 0.12, 2.3]} p={[0, 3.25, 1.1]} rot={[0.12, 0, 0]} c={awning} r={1} />
+        <Box size={[w * 0.96, 0.22, 0.1]} p={[0, 3.02, 2.2]} c={tint(awning, 0.7)} />
+        {[-0.46, -0.16, 0.16, 0.46].map((f) => <Cyl key={f} rt={0.07} h={3.0} p={[w * f, 1.5, 2.12]} c="#e6dcc4" r={0.9} seg={8} />)}
+        <Box size={[1.5, 0.5, 0.06]} p={[w * 0.3, 2.5, 2.3]} c="#2a1d16" /><Box size={[1.36, 0.36, 0.07]} p={[w * 0.3, 2.5, 2.31]} c="#f0d58c" />
+        <Box size={[w * 0.4, 0.5, 0.5]} p={[-w * 0.22, 0.25, 1.6]} c="#8a6238" r={0.95} /><Cyl rt={0.26} rb={0.26} h={0.8} p={[w * 0.1, 0.4, 1.7]} c="#8a5c34" r={0.9} seg={10} />
+      </group>}
       <Box size={[0.7, 1.3, 0.7]} p={[w * 0.25, h + 0.8, -d * 0.2]} c="#6a4034" />
     </group>
   );
@@ -173,8 +180,8 @@ const CREW: Look3[] = [CAST3.worker1, CAST3.worker2, CAST3.worker3];
 /** A row of screw jacks along one wall with a man on every bar. Local frame: wall face at z=0, street side = +z, row runs along x. */
 export const CrewRow: React.FC<{
   t: number; frame: number; lift: number; xs: number[]; seed?: number; lookAt?: number; // lookAt: 0..1 heads turned to the foreman
-  hide?: number[]; slide?: { k: number; z: number }; ready?: number; bar?: (t: number, off: number) => number; eff?: (t: number, off: number) => number;
-}> = ({ t, frame, lift, xs, seed = 0, lookAt = 0, hide = [], slide, ready = 1, bar = barAngle, eff = effort }) => {
+  hide?: number[]; slide?: { k: number; z: number }; ready?: number; bar?: (t: number, off: number) => number; eff?: (t: number, off: number) => number; variety?: boolean;
+}> = ({ t, frame, lift, xs, seed = 0, lookAt = 0, hide = [], slide, ready = 1, bar = barAngle, eff = effort, variety = false }) => {
   const blocks = Math.max(0, lift - 0.86);
   const stage = blocks > 0.25 ? blocks - 0.12 : 0; // plank staging the men stand on once the packing gets tall
   return (
@@ -184,24 +191,30 @@ export const CrewRow: React.FC<{
         {xs.map((x, k) => <Crib key={`c${k}`} p={[x - 1.5, 0, 0.55]} h={stage - 0.07} w={0.8} />)}
       </>}
       {xs.map((x, k) => {
-        const off = manOff(k + seed); const a = bar(t, off); const e = eff(t, off) * ready;
+        const off = manOff(k + seed) * (variety ? 1.6 : 1); const spotter = variety && (k + seed) % 6 === 4; const a = spotter ? 0.2 : bar(t, off); const e = eff(t, off) * ready;
+        const sc = variety ? crewScale(k + seed) : 1; const vr = rnd(k * 9.1 + seed); // per-man scale and style
         const sz = slide && slide.k === k ? slide.z : 0;
         const pos: V3 = [x - 0.74, stage, 0.36]; const rotY = Math.PI / 2;
         const pivot = V(x, blocks + 0.42, -0.32);
-        const along = (d: number) => toLocal(pivot.clone().add(V(Math.sin(a) * d, 0, Math.cos(a) * d)), pos, rotY);
+        const along = (d: number) => toLocal(pivot.clone().add(V(Math.sin(a) * d, 0, Math.cos(a) * d)), pos, rotY, sc);
         const u = (0.3 - a) / 1.05;
         const idle = Math.sin(t * 1.7 + k * 1.3);
         const pose: Pose3 = {
           hipY: STAND_HIP - 0.17 + (blocks - stage) * 0.45 - e * 0.03 + idle * 0.006, hipZ: lerp(0.14, -0.1, u), hipX: 0.03 + idle * 0.01,
           lean: lerp(0.6, -0.08, u), twist: lerp(-0.1, 0.3, u),
           headPitch: lerp(lerp(-0.45, 0.05, u), -0.5, lookAt), headYaw: lerp(0.45, -0.95, lookAt) + idle * 0.05,
-          handR: along(0.84), handL: along(0.64),
+          handR: along(variety ? 0.78 + vr * 0.08 : 0.84), handL: along(variety ? 0.52 + vr * 0.14 : 0.64),
           footL: V(-0.17, 0.07 + Math.sin(Math.min(1, Math.max(0, u)) * Math.PI) * 0.05, -0.2 - u * 0.12), footR: V(0.17, 0.07 + Math.sin(Math.min(1, Math.max(0, 1 - u)) * Math.PI) * 0.03, 0.26 - u * 0.1),
           smile: e > 0.3 ? -0.9 : 0.4, open: e > 0.5 ? 0.28 : 0, mouthW: 1.2, browTilt: e, brow: lookAt * 0.6 - e * 0.5, eyes: 1 - e * 0.45, lookY: lookAt * 0.6,
         };
         return <group key={k}>
           <Jack p={[x, 0, -0.32 + sz]} angle={a} ext={Math.max(0.02, lift - blocks - 0.62)} blocks={blocks} />
-          {!hide.includes(k) && <Character3D frame={frame} seed={k + seed + 2} pos={pos} rotY={rotY} look={CREW[(k + seed) % 3]} pose={pose} />}
+          {!hide.includes(k) && !spotter && <Character3D frame={frame} seed={k + seed + 2} pos={pos} rotY={rotY} scale={sc} look={variety ? crewLook(k + seed * 3 + 1) : CREW[(k + seed) % 3]} pose={variety ? { ...pose, lean: (pose.lean ?? 0) * (0.85 + vr * 0.3), headYaw: (pose.headYaw ?? 0) + Math.sin(t * (0.8 + vr) + k) * 0.18 * (1 - e) } : pose} />}
+          {/* every sixth man is a spotter: kneels at his jack, watches the screw through the pull, then looks up and signals */}
+          {spotter && (() => { const sp: V3 = [x + 0.48, stage, 0.92]; const sr = Math.PI + 0.45; const ok = 1 - e; const wave = ok * Math.max(0, Math.sin(t * 2.2 + k));
+            return <Character3D frame={frame} seed={k + seed + 2} pos={sp} rotY={sr} scale={sc} look={crewLook(k + seed * 3 + 1)}
+              pose={{ hipY: 0.52, lean: 0.5 - wave * 0.25, hipZ: -0.05, footL: V(-0.16, 0.07, -0.42), footR: V(0.16, 0.07, 0.22), handL: V(-0.2, 0.62, 0.3),
+                handR: wave > 0.2 ? V(0.3, 1.5 + wave * 0.2, 0.1) : toLocal(V(x + 0.12, blocks + 0.55, -0.1), sp, sr, sc), headPitch: lerp(0.3, -0.45, wave), headYaw: lerp(-0.3, 0.9, wave), smile: 0.2 + wave * 0.5, browTilt: e * 0.6 }} />; })()}
         </group>;
       })}
     </group>
