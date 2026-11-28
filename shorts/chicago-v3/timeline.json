@@ -1,0 +1,1041 @@
+{
+ "dur": 54.6,
+ "cuts": [
+  0,
+  2.5,
+  4.2,
+  7.2,
+  9.4,
+  11.5,
+  15.5,
+  17.3,
+  20.0,
+  23.4,
+  26.2,
+  28.0,
+  32.6,
+  36.4,
+  40.0,
+  43.9,
+  47.3,
+  50.0
+ ],
+ "shots": [
+  "wake",
+  "window",
+  "hookExt",
+  "chicago1861",
+  "mudGent",
+  "swamp",
+  "engineer",
+  "raiseLapse",
+  "lowHotel",
+  "tiltUp",
+  "hammer",
+  "jacksPlace",
+  "crewTurn",
+  "liftWide",
+  "lobbyOpen",
+  "dollhouse",
+  "riseBeneath",
+  "finale"
+ ],
+ "ev": {
+  "eyesOpen": 0.5,
+  "sitUp": [
+   1.1,
+   2.1
+  ],
+  "lookWindow": 2.7,
+  "shock": 3.3,
+  "mudStep": 9.9,
+  "sink": [
+   10.1,
+   10.9
+  ],
+  "tug": [
+   11.0,
+   11.4
+  ],
+  "pointPlan": 16.5,
+  "stopHammer": 27.1,
+  "hammerUp": [
+   26.3,
+   26.9
+  ],
+  "jackPush": [
+   28.2,
+   29.2
+  ],
+  "whistle": 33.0,
+  "turns": [
+   33.5,
+   34.6,
+   35.6
+  ],
+  "liftLapse": [
+   36.6,
+   39.6
+  ],
+  "bell": 42.85,
+  "walkIn": [
+   40.4,
+   42.2
+  ],
+  "snore": 44.1,
+  "eat": 45.3,
+  "shake": 46.1,
+  "riseB": [
+   47.4,
+   50.0
+  ],
+  "finalCard": 53.9
+ },
+ "captions": [
+  {
+   "t0": 0.0,
+   "t1": 1.06,
+   "words": [
+    {
+     "w": "Imagine",
+     "s": 0.0,
+     "hot": false
+    },
+    {
+     "w": "waking",
+     "s": 0.48,
+     "hot": false
+    },
+    {
+     "w": "up",
+     "s": 0.78,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 1.06,
+   "t1": 1.76,
+   "words": [
+    {
+     "w": "in",
+     "s": 1.06,
+     "hot": false
+    },
+    {
+     "w": "your",
+     "s": 1.2,
+     "hot": false
+    },
+    {
+     "w": "hotel",
+     "s": 1.34,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 1.76,
+   "t1": 2.54,
+   "words": [
+    {
+     "w": "room,",
+     "s": 1.76,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 2.54,
+   "t1": 3.4,
+   "words": [
+    {
+     "w": "only",
+     "s": 2.54,
+     "hot": false
+    },
+    {
+     "w": "to",
+     "s": 2.78,
+     "hot": false
+    },
+    {
+     "w": "discover",
+     "s": 3.02,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 3.4,
+   "t1": 4.88,
+   "words": [
+    {
+     "w": "the",
+     "s": 3.4,
+     "hot": false
+    },
+    {
+     "w": "entire",
+     "s": 3.72,
+     "hot": true
+    },
+    {
+     "w": "building",
+     "s": 4.26,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 4.88,
+   "t1": 5.86,
+   "words": [
+    {
+     "w": "is",
+     "s": 4.88,
+     "hot": false
+    },
+    {
+     "w": "being",
+     "s": 5.14,
+     "hot": false
+    },
+    {
+     "w": "lifted",
+     "s": 5.4,
+     "hot": true
+    }
+   ]
+  },
+  {
+   "t0": 5.86,
+   "t1": 7.06,
+   "words": [
+    {
+     "w": "off",
+     "s": 5.86,
+     "hot": false
+    },
+    {
+     "w": "the",
+     "s": 6.08,
+     "hot": false
+    },
+    {
+     "w": "ground.",
+     "s": 6.24,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 7.24,
+   "t1": 8.58,
+   "words": [
+    {
+     "w": "In",
+     "s": 7.24,
+     "hot": false
+    },
+    {
+     "w": "1861,",
+     "s": 7.36,
+     "hot": true
+    }
+   ]
+  },
+  {
+   "t0": 8.82,
+   "t1": 9.92,
+   "words": [
+    {
+     "w": "Chicago",
+     "s": 8.82,
+     "hot": false
+    },
+    {
+     "w": "was",
+     "s": 9.12,
+     "hot": false
+    },
+    {
+     "w": "struggling",
+     "s": 9.48,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 9.92,
+   "t1": 10.86,
+   "words": [
+    {
+     "w": "with",
+     "s": 9.92,
+     "hot": false
+    },
+    {
+     "w": "a",
+     "s": 10.22,
+     "hot": false
+    },
+    {
+     "w": "serious",
+     "s": 10.38,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 10.86,
+   "t1": 11.56,
+   "words": [
+    {
+     "w": "problem.",
+     "s": 10.86,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 11.56,
+   "t1": 12.22,
+   "words": [
+    {
+     "w": "The",
+     "s": 11.56,
+     "hot": false
+    },
+    {
+     "w": "city",
+     "s": 11.8,
+     "hot": false
+    },
+    {
+     "w": "was",
+     "s": 11.98,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 12.22,
+   "t1": 13.12,
+   "words": [
+    {
+     "w": "so",
+     "s": 12.22,
+     "hot": false
+    },
+    {
+     "w": "low",
+     "s": 12.56,
+     "hot": false
+    },
+    {
+     "w": "and",
+     "s": 12.9,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 13.12,
+   "t1": 14.38,
+   "words": [
+    {
+     "w": "swampy",
+     "s": 13.12,
+     "hot": true
+    },
+    {
+     "w": "that",
+     "s": 13.78,
+     "hot": false
+    },
+    {
+     "w": "drainage",
+     "s": 14.0,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 14.38,
+   "t1": 15.54,
+   "words": [
+    {
+     "w": "was",
+     "s": 14.38,
+     "hot": false
+    },
+    {
+     "w": "difficult.",
+     "s": 14.7,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 15.54,
+   "t1": 16.54,
+   "words": [
+    {
+     "w": "To",
+     "s": 15.54,
+     "hot": false
+    },
+    {
+     "w": "fix",
+     "s": 15.7,
+     "hot": false
+    },
+    {
+     "w": "it,",
+     "s": 15.92,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 16.54,
+   "t1": 17.56,
+   "words": [
+    {
+     "w": "engineers",
+     "s": 16.54,
+     "hot": false
+    },
+    {
+     "w": "raised",
+     "s": 16.78,
+     "hot": false
+    },
+    {
+     "w": "the",
+     "s": 17.3,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 17.56,
+   "t1": 18.84,
+   "words": [
+    {
+     "w": "streets",
+     "s": 17.56,
+     "hot": false
+    },
+    {
+     "w": "sometimes",
+     "s": 17.88,
+     "hot": false
+    },
+    {
+     "w": "by",
+     "s": 18.48,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 18.84,
+   "t1": 20.02,
+   "words": [
+    {
+     "w": "several",
+     "s": 18.84,
+     "hot": true
+    },
+    {
+     "w": "feet.",
+     "s": 19.34,
+     "hot": true
+    }
+   ]
+  },
+  {
+   "t0": 20.02,
+   "t1": 20.9,
+   "words": [
+    {
+     "w": "But",
+     "s": 20.02,
+     "hot": false
+    },
+    {
+     "w": "one",
+     "s": 20.18,
+     "hot": false
+    },
+    {
+     "w": "building",
+     "s": 20.54,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 20.9,
+   "t1": 22.46,
+   "words": [
+    {
+     "w": "presented",
+     "s": 20.9,
+     "hot": false
+    },
+    {
+     "w": "an",
+     "s": 21.36,
+     "hot": false
+    },
+    {
+     "w": "unbelievable",
+     "s": 21.7,
+     "hot": true
+    }
+   ]
+  },
+  {
+   "t0": 22.46,
+   "t1": 23.44,
+   "words": [
+    {
+     "w": "challenge",
+     "s": 22.46,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 23.44,
+   "t1": 25.04,
+   "words": [
+    {
+     "w": "the",
+     "s": 23.44,
+     "hot": false
+    },
+    {
+     "w": "six-storey",
+     "s": 23.7,
+     "hot": false
+    },
+    {
+     "w": "Tremont",
+     "s": 24.6,
+     "hot": true
+    }
+   ]
+  },
+  {
+   "t0": 25.04,
+   "t1": 26.26,
+   "words": [
+    {
+     "w": "House",
+     "s": 25.04,
+     "hot": false
+    },
+    {
+     "w": "Hotel.",
+     "s": 25.3,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 26.28,
+   "t1": 27.3,
+   "words": [
+    {
+     "w": "Instead",
+     "s": 26.28,
+     "hot": false
+    },
+    {
+     "w": "of",
+     "s": 26.58,
+     "hot": false
+    },
+    {
+     "w": "demolishing",
+     "s": 26.76,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 27.3,
+   "t1": 27.94,
+   "words": [
+    {
+     "w": "it,",
+     "s": 27.3,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 27.94,
+   "t1": 29.12,
+   "words": [
+    {
+     "w": "workers",
+     "s": 27.94,
+     "hot": false
+    },
+    {
+     "w": "placed",
+     "s": 28.12,
+     "hot": false
+    },
+    {
+     "w": "thousands",
+     "s": 28.56,
+     "hot": true
+    }
+   ]
+  },
+  {
+   "t0": 29.12,
+   "t1": 30.5,
+   "words": [
+    {
+     "w": "of",
+     "s": 29.12,
+     "hot": false
+    },
+    {
+     "w": "screwjacks",
+     "s": 29.42,
+     "hot": false
+    },
+    {
+     "w": "beneath",
+     "s": 29.98,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 30.5,
+   "t1": 31.46,
+   "words": [
+    {
+     "w": "the",
+     "s": 30.5,
+     "hot": false
+    },
+    {
+     "w": "massive",
+     "s": 30.8,
+     "hot": false
+    },
+    {
+     "w": "brick",
+     "s": 31.18,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 31.46,
+   "t1": 32.48,
+   "words": [
+    {
+     "w": "structure.",
+     "s": 31.46,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 32.64,
+   "t1": 33.12,
+   "words": [
+    {
+     "w": "Hundreds",
+     "s": 32.64,
+     "hot": true
+    },
+    {
+     "w": "of",
+     "s": 32.64,
+     "hot": false
+    },
+    {
+     "w": "men",
+     "s": 32.88,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 33.12,
+   "t1": 34.12,
+   "words": [
+    {
+     "w": "worked",
+     "s": 33.12,
+     "hot": false
+    },
+    {
+     "w": "together,",
+     "s": 33.44,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 34.12,
+   "t1": 35.08,
+   "words": [
+    {
+     "w": "turning",
+     "s": 34.12,
+     "hot": false
+    },
+    {
+     "w": "the",
+     "s": 34.42,
+     "hot": false
+    },
+    {
+     "w": "mechanisms",
+     "s": 34.62,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 35.08,
+   "t1": 36.48,
+   "words": [
+    {
+     "w": "little",
+     "s": 35.08,
+     "hot": false
+    },
+    {
+     "w": "by",
+     "s": 35.54,
+     "hot": false
+    },
+    {
+     "w": "little,",
+     "s": 35.9,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 36.48,
+   "t1": 37.64,
+   "words": [
+    {
+     "w": "lifting",
+     "s": 36.48,
+     "hot": false
+    },
+    {
+     "w": "the",
+     "s": 36.82,
+     "hot": false
+    },
+    {
+     "w": "entire",
+     "s": 37.14,
+     "hot": true
+    }
+   ]
+  },
+  {
+   "t0": 37.64,
+   "t1": 38.78,
+   "words": [
+    {
+     "w": "hotel",
+     "s": 37.64,
+     "hot": false
+    },
+    {
+     "w": "more",
+     "s": 38.24,
+     "hot": false
+    },
+    {
+     "w": "than",
+     "s": 38.58,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 38.78,
+   "t1": 40.04,
+   "words": [
+    {
+     "w": "six",
+     "s": 38.78,
+     "hot": true
+    },
+    {
+     "w": "feet.",
+     "s": 39.14,
+     "hot": true
+    }
+   ]
+  },
+  {
+   "t0": 40.04,
+   "t1": 40.42,
+   "words": [
+    {
+     "w": "And",
+     "s": 40.04,
+     "hot": false
+    },
+    {
+     "w": "the",
+     "s": 40.14,
+     "hot": false
+    },
+    {
+     "w": "most",
+     "s": 40.24,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 40.42,
+   "t1": 41.82,
+   "words": [
+    {
+     "w": "unbelievable",
+     "s": 40.42,
+     "hot": true
+    },
+    {
+     "w": "part?",
+     "s": 41.0,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 41.82,
+   "t1": 42.86,
+   "words": [
+    {
+     "w": "The",
+     "s": 41.82,
+     "hot": false
+    },
+    {
+     "w": "hotel",
+     "s": 42.0,
+     "hot": false
+    },
+    {
+     "w": "stayed",
+     "s": 42.44,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 42.86,
+   "t1": 43.8,
+   "words": [
+    {
+     "w": "open.",
+     "s": 42.86,
+     "hot": true
+    }
+   ]
+  },
+  {
+   "t0": 43.96,
+   "t1": 45.32,
+   "words": [
+    {
+     "w": "Guests",
+     "s": 43.96,
+     "hot": false
+    },
+    {
+     "w": "continued",
+     "s": 43.96,
+     "hot": false
+    },
+    {
+     "w": "sleeping,",
+     "s": 44.48,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 45.32,
+   "t1": 46.44,
+   "words": [
+    {
+     "w": "eating",
+     "s": 45.32,
+     "hot": false
+    },
+    {
+     "w": "and",
+     "s": 45.58,
+     "hot": false
+    },
+    {
+     "w": "conducting",
+     "s": 46.02,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 46.44,
+   "t1": 47.48,
+   "words": [
+    {
+     "w": "business",
+     "s": 46.44,
+     "hot": false
+    },
+    {
+     "w": "while",
+     "s": 46.94,
+     "hot": false
+    },
+    {
+     "w": "the",
+     "s": 47.32,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 47.48,
+   "t1": 48.84,
+   "words": [
+    {
+     "w": "building",
+     "s": 47.48,
+     "hot": false
+    },
+    {
+     "w": "slowly",
+     "s": 47.78,
+     "hot": false
+    },
+    {
+     "w": "rose",
+     "s": 48.34,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 48.84,
+   "t1": 50.06,
+   "words": [
+    {
+     "w": "beneath",
+     "s": 48.84,
+     "hot": false
+    },
+    {
+     "w": "them.",
+     "s": 49.2,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 50.1,
+   "t1": 50.82,
+   "words": [
+    {
+     "w": "Chicago",
+     "s": 50.1,
+     "hot": false
+    },
+    {
+     "w": "didn't",
+     "s": 50.2,
+     "hot": false
+    },
+    {
+     "w": "just",
+     "s": 50.64,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 50.82,
+   "t1": 52.26,
+   "words": [
+    {
+     "w": "rebuild",
+     "s": 50.82,
+     "hot": false
+    },
+    {
+     "w": "its",
+     "s": 51.24,
+     "hot": false
+    },
+    {
+     "w": "streets,",
+     "s": 51.46,
+     "hot": false
+    }
+   ]
+  },
+  {
+   "t0": 52.26,
+   "t1": 53.52,
+   "words": [
+    {
+     "w": "it",
+     "s": 52.26,
+     "hot": false
+    },
+    {
+     "w": "literally",
+     "s": 52.42,
+     "hot": true
+    },
+    {
+     "w": "lifted",
+     "s": 52.96,
+     "hot": true
+    }
+   ]
+  },
+  {
+   "t0": 53.52,
+   "t1": 54.7,
+   "words": [
+    {
+     "w": "its",
+     "s": 53.52,
+     "hot": false
+    },
+    {
+     "w": "city.",
+     "s": 53.86,
+     "hot": false
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "chicago-hotel-lift-short",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "still": "remotion still src/index.ts Short output/still.png --browser-executable=$CHROME",
+    "render": "remotion render src/index.ts Short output/short.mp4 --codec=h264 --crf=20 --browser-executable=$CHROME",
+    "preview3d": "remotion render src/index.ts PreviewV2 output/preview_v2.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --gl=angle --concurrency=1 --browser-executable=$CHROME",
+    "preview-lift": "remotion render src/index.ts PreviewLift output/preview_lift.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --gl=angle --concurrency=1 --browser-executable=$CHROME",
+    "preview-opening": "remotion render src/index.ts PreviewOpening output/preview_opening.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --gl=angle --concurrency=1 --browser-executable=$CHROME"
+  },
+  "dependencies": {
+    "@fontsource/anton": "^5.3.0",
+    "@fontsource/fredoka": "^5.3.0",
+    "@react-three/fiber": "^9.8.2",
+    "@remotion/cli": "^4.0.547",
+    "@remotion/three": "^4.0.547",
+    "@remotion/transitions": "^4.0.547",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.547",
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.3",
+    "@types/three": "^0.170.0",
+    "typescript": "^7.0.2"
+  }
+}
