@@ -43,7 +43,7 @@ export const HookShot: React.FC<{ t: number; frame: number; shot: 'wide' | 'crew
   const frontXs = useMemo(() => Array.from({ length: 25 }).map((_, k) => -SX + 0.9 + k * 1.175), []);
   const sideXs = useMemo(() => Array.from({ length: 9 }).map((_, k) => -5.2 + k * 1.3), []);
   const cam = shot === 'wide'
-    ? { pos: key3(t, [[0, [SX + 1.6, 1.5, FZ + 2.75]], [2.4, [SX + 2.3, 3.3, FZ + 3.0]]]) as V3, look: key3(t, [[0, [-1, 6.2, FZ - 0.8]], [2.4, [-1, 7.4, FZ - 0.8]]]) as V3, fov: 64 }
+    ? { pos: key3(t, [[0, [SX + 1.5, 1.5, FZ + 2.7]], [2.4, [SX + 1.7, 3.0, FZ + 2.85]]]) as V3, look: key3(t, [[0, [-1, 6.2, FZ - 0.8]], [2.4, [-1, 7.4, FZ - 0.8]]]) as V3, fov: 64 }
     : { pos: key3(t, [[2.3, [-3.2, 1.75, FZ + 3.1]], [3.9, [-4.3, 1.7, FZ + 3.05]]]) as V3, look: key3(t, [[2.3, [-9.6, 1.15, FZ + 0.2]], [3.9, [-10.7, 1.2, FZ + 0.2]]]) as V3, fov: 46 };
   const sk = jolt * 0.025; cam.pos = [cam.pos[0] + Math.sin(t * 61) * sk, cam.pos[1] + Math.cos(t * 53) * sk, cam.pos[2]];
   const DAY: [number, string][] = [[0, '#2f62ad'], [0.3, '#6f9bd6'], [0.43, '#bcd3ea'], [0.5, '#e9e6da'], [0.56, '#b9a58c'], [1, '#6a5a4a']];
