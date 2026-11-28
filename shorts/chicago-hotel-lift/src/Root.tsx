@@ -4,6 +4,7 @@ import React from 'react';
 import { Composition, continueRender, delayRender } from 'remotion';
 import { Short } from './Short';
 import { PREVIEW_FRAMES, PreviewV2 } from './three/PreviewV2';
+import { LIFT_FRAMES, PreviewLift } from './three/PreviewLift';
 import { TIMING } from './lib/anim';
 
 if (typeof document !== 'undefined') {
@@ -15,6 +16,7 @@ if (typeof document !== 'undefined') {
 export const Root: React.FC = () => (
   <>
     <Composition id="Short" component={Short} durationInFrames={TIMING.totalFrames} fps={TIMING.fps} width={1080} height={1920} />
+    <Composition id="PreviewLift" component={PreviewLift} durationInFrames={LIFT_FRAMES} fps={30} width={1080} height={1920} />
     <Composition id="PreviewV2" component={PreviewV2} durationInFrames={PREVIEW_FRAMES} fps={30} width={1080} height={1920} />
   </>
 );

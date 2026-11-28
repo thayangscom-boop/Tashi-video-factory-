@@ -1,0 +1,61 @@
+{
+  "fps": 30,
+  "duration": 14.2,
+  "vo": [
+    {
+      "file": "vo_s7.wav",
+      "line": "s7",
+      "start": 0.15
+    },
+    {
+      "file": "vo_s8.wav",
+      "line": "s8",
+      "start": 10.27,
+      "cut": 2.84,
+      "captions": 3
+    }
+  ],
+  "cuts": [
+    0,
+    2.25,
+    4.75,
+    7.0,
+    8.05,
+    10.15,
+    12.05
+  ],
+  "dissolve": 0.3,
+  "walks": {
+    "pullman": {
+      "t0": 0.0,
+      "t1": 1.35,
+      "step": 0.36
+    },
+    "carriers": {
+      "t0": 2.25,
+      "t1": 4.4,
+      "step": 0.34
+    },
+    "guest": {
+      "t0": 12.62,
+      "t1": 13.52,
+      "step": 0.36
+    }
+  },
+  "jackSet": 4.3,
+  "whistle": 5.15,
+  "whip": 5.62,
+  "strokes": [
+    5.9,
+    7.15,
+    8.25,
+    9.2
+  ],
+  "pull": 0.42,
+  "timelapse": [
+    10.3,
+    11.9
+  ],
+  "plank": 12.25,
+  "hatTip": 13.6
+}

@@ -3,12 +3,12 @@ import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 import { TIMING, clamp, pop } from '../lib/anim';
 
 /** Phone-safe, high-contrast captions synced to narration timing. */
-export const Captions: React.FC = () => {
+export const Captions: React.FC<{ lines?: typeof TIMING.lines }> = ({ lines }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
   let active: { text: string; t0: number } | null = null;
-  for (const ln of TIMING.lines) {
+  for (const ln of lines ?? TIMING.lines) {
     for (let k = 0; k < ln.captions.length; k++) {
       const c = ln.captions[k];
       const a = ln.start + c.start;
