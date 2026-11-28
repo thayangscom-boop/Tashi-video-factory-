@@ -158,7 +158,7 @@ const SHOT = {
     dof = camera.position.distanceTo(headC(r)); apt = 0.012; },
   // 3 (6.6-9.9) — Indianapolis, 1930: the street, the old eight-storey telephone building
   city1930(t, u) { setLook('day', V(4, 6, -6)); EXT.update({ k: 0, rig: false, jackAng: 0 }); traffic(t); pedLife(t);
-    look(mv(t, 6.6, 9.9, V(34, 1.7, 22), V(31, 3.2, 17)), mv(t, 6.6, 9.9, V(10, 12, -6), V(6, 15, -7)), 54); },
+    look(mv(t, 6.6, 9.9, V(36.2, 1.7, 22), V(35.6, 3.2, 17)), mv(t, 6.6, 9.9, V(10, 12, -6), V(6, 15, -7)), 54); },
   // 4 (9.9-15.6) — Indiana Bell wanted a bigger headquarters, right where the old building stood
   plans(t, u) { setLook('day', V(14, 2, -4)); EXT.update({ k: 0, rig: false, ghost: seg(t, ...EV.ghost) }); traffic(t); pedLife(t, C.peds.slice(0, 2));
     const e1 = C.exec1, e2 = C.exec2; const cx = 19.2, cz = 1.5;
@@ -239,8 +239,8 @@ const SHOT = {
     setLook('inside', V(HX, Y.office + 1, -2)); INT.updDoll(0, t); INT.cords.forEach(c => (c.visible = false)); panesDrift(0.4);
     const r = C.ruth, yo = Y.office; place(r, HX - 1.25, yo, -RD + 0.5, 0); idle(r, t); const ans = seg(t, EV.answer - 0.25, EV.answer + 0.1);
     const ring = t < EV.answer ? Math.sin(t * 70) * 0.02 : 0; INT.desk.phone.rotation.z = ring;
-    const base = INT.desk.phone.localToWorld(V(0.09, 0.2, 0)); const ear = headC(r).add(dirW(r, -0.22, -0.02, 0.05)); const hp = base.clone().lerp(ear, ans);
-    arm(r, 'Right', hp); receiver.position.copy(INT.desk.phone.worldToLocal(hp.clone())); receiver.rotation.z = ans * 0.9;
+    const base = INT.desk.phone.localToWorld(V(0.09, 0.2, 0)); const ear = headC(r).add(dirW(r, -1, -0.15, 0.7).multiplyScalar(0.24)); const hp = base.clone().lerp(ear, ans);
+    arm(r, 'Right', hp); receiver.position.copy(INT.desk.phone.worldToLocal(hp.clone())); receiver.rotation.z = ans * 0.9; receiver.scale.setScalar(1.8);
     arm(r, 'Left', Lw(r, 0.25, 0.92, 0.25)); headTurn(r, -0.2 * ans, 0.15 * (1 - ans)); face(r, ans > 0.5 ? 'happy' : 'curious');
     INT.desk.mug.position.set(-1.15, Y.office + 0.85, -RD + 1.0);
     officeExtras(t);
@@ -249,7 +249,7 @@ const SHOT = {
   son(t, u) { setLook('inside', V(SX, 1.5, -2.5)); const v = C.vonnegut; studioKid(t, true);
     place(v, SX - 0.6, 0, -2.6 - 0.85, 0); idle(v, t); arm(v, 'Right', INT.boardG.localToWorld(V(0.15 + Math.sin(t * 4) * 0.05, 0.05, -0.1))); arm(v, 'Left', INT.boardG.localToWorld(V(-0.4, 0.05, -0.25))); headTurn(v, 0, 0.35); face(v, 'focused');
     const kc = headC(C.kurt);
-    look(mv(t, 59.1, 63.2, V(SX - 0.4, 1.7, 1.4), V(SX + 1.15, 1.1, -0.75)), mv(t, 59.1, 63.2, V(SX + 1.9, 0.9, -1.7), kc.clone().add(V(0, -0.1, 0))), mv(t, 59.1, 63.2, V(48, 0, 0), V(40, 0, 0)).x);
+    look(mv(t, 59.1, 63.2, V(SX + 0.7, 1.55, 0.5), V(SX + 1.15, 1.1, -0.75)), mv(t, 59.1, 63.2, V(SX + 1.9, 0.9, -1.7), kc.clone().add(V(0, -0.1, 0))), mv(t, 59.1, 63.2, V(48, 0, 0), V(40, 0, 0)).x);
     dof = camera.position.distanceTo(kc); apt = t > 60.5 ? 0.014 : 0.006; },
 };
 let mapK = -1, pipeTags = -1;
@@ -259,8 +259,8 @@ function panesDrift(d) { INT.D.traverse(m => { if (m.isMesh && m.material.map &&
 function officeExtras(t) { const c0 = C.clerks[0], yo = Y.office; place(c0, HX + 1.4, yo, -2.3 - 0.75, 0); idle(c0, t); arm(c0, 'Right', V(HX + 1.3, yo + 0.95 + Math.abs(Math.sin(t * 3)) * 0.05, -2.2)); headTurn(c0, 0, 0.3); face(c0, 'focused'); }
 function studioKid(t, payoff) { const k = C.kurt; const seatY = 0.42; const ap = V(SX + 2.2, seatY, -1.6); const yaw = -0.9;
   sit(k, ap.clone().add(V(Math.sin(yaw) * 0.05, 0, Math.cos(yaw) * 0.05)), yaw, t, 0, -0.12, 0.1); book.visible = true;
-  const lookUp = payoff ? seg(t, EV.lookUp - 0.3, EV.lookUp + 0.1) : 0; const bk = Lw(k, 0, lerp(1.0, 0.85, lookUp), 0.42);
-  arm(k, 'Left', bk.clone().add(dirW(k, 0.13, 0, 0))); arm(k, 'Right', bk.clone().add(dirW(k, -0.13, 0, 0))); book.position.copy(bk.clone().add(V(0, 0.04, 0))); book.rotation.set(-0.7, yaw, 0, 'YXZ');
+  const lookUp = payoff ? seg(t, EV.lookUp - 0.3, EV.lookUp + 0.1) : 0; INT.kidDesk.visible = false; const bk = Lw(k, 0, lerp(1.42, 1.12, lookUp), 0.62);
+  arm(k, 'Left', bk.clone().add(dirW(k, 1, 0, 0).multiplyScalar(0.09))); arm(k, 'Right', bk.clone().add(dirW(k, -1, 0, 0).multiplyScalar(0.09))); book.position.copy(bk.clone().add(V(-SX, 0.03, 0))); book.scale.setScalar(1.6); book.rotation.set(-0.7, yaw, 0, 'YXZ');
   headTurn(k, lookUp * 0.35, 0.45 * (1 - lookUp) - 0.05 * lookUp); face(k, payoff ? (lookUp > 0.5 ? 'happy' : 'focused') : 'focused'); }
 // a man on a horizontal screw jack: stands beside it and pumps the ratchet bar up and down
 function jackMan(w, t, J, i) { const ph = Math.sin(t * 3.2 + i * 0.9); J.bar.rotation.z = ph * 0.55; J.j.updateMatrixWorld(true);
@@ -270,7 +270,7 @@ function jackMan(w, t, J, i) { const ph = Math.sin(t * 3.2 + i * 0.9); J.bar.rot
 
 /* ================= frame ================= */
 function frame(t) {
-  hideAll(); dof = 0; apt = 0; mapK = -1; pipeTags = -1; INT.arrowM.visible = false; INT.stamp.visible = false; INT.D.position.x = 0; INT.desk.phone.rotation.z = 0; receiver.position.set(0.09, 0.2, 0); receiver.rotation.z = 0;
+  hideAll(); dof = 0; apt = 0; mapK = -1; pipeTags = -1; INT.arrowM.visible = false; INT.stamp.visible = false; INT.D.position.x = 0; INT.desk.phone.rotation.z = 0; receiver.position.set(0.09, 0.2, 0); receiver.rotation.z = 0; receiver.scale.setScalar(1);
   let k = 0; TL.cuts.forEach((c, i) => { if (t >= c) k = i; }); const name = TL.shots[k], t0 = TL.cuts[k], t1 = TL.cuts[k + 1] ?? TL.dur;
   SHOT[name](t, (t - t0) / (t1 - t0));
   ALL.forEach(c => { if (c.root.visible) SR.updateLimbs(c); });
