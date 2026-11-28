@@ -1,0 +1,32 @@
+{
+  "dur": 10.0,
+  "cuts": [0, 2.4, 4.6, 6.3, 8.4],
+  "vo": [
+    { "file": "audio/vo1.wav", "from": 0.0, "to": 0.9, "at": 0.35 },
+    { "file": "audio/vo1.wav", "from": 1.36, "to": 2.5, "at": 2.62 },
+    { "file": "audio/vo2.wav", "from": 0.0, "to": 1.35, "at": 6.55 }
+  ],
+  "captions": [
+    { "t0": 0.35, "t1": 1.35, "text": "One donut left." },
+    { "t0": 2.62, "t1": 3.25, "text": "Two people" },
+    { "t0": 3.25, "t1": 4.0, "text": "saw it." },
+    { "t0": 6.55, "t1": 7.25, "text": "Neither of them" },
+    { "t0": 7.25, "t1": 8.1, "text": "saw GUS." }
+  ],
+  "ben": { "walk": [0.15, 1.75], "stop": 1.75, "smug": 1.95 },
+  "maya": { "walk": [2.25, 3.45], "stop": 3.45 },
+  "eyes": 3.55,
+  "crouch": [4.05, 4.6],
+  "lunge": [4.6, 5.25],
+  "reach": [5.0, 5.55],
+  "gusTurn": [5.05, 5.35],
+  "slide": [5.3, 5.8],
+  "lift": [5.85, 6.25],
+  "bite": 6.75,
+  "chew": [6.85, 8.1],
+  "shock": 6.4,
+  "annoyed": 7.35,
+  "offer": [8.55, 9.05],
+  "glance": 9.25,
+  "stepHz": 2.2
+}

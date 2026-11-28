@@ -1,0 +1,12 @@
+{
+  "note": "Assets used by the V3 test scene (v3.js). Nothing is copied into shorts/v3-test; files are loaded from the installed claude-3d-animated-shorts skill.",
+  "character_rig": { "file": ".claude/skills/claude-3d-animated-shorts/engine/assets/rigs/Xbot.glb", "source": "three.js examples (Mixamo Xbot), fetched by scripts/fetch-assets-cloud.sh", "license": "see three.js examples / Mixamo terms" },
+  "character_builder": { "file": ".claude/skills/claude-3d-animated-shorts/engine/stickrig.js", "license": "MIT (thuann-vn/claude-3d-animated-shorts)" },
+  "post_chain": { "file": ".claude/skills/claude-3d-animated-shorts/engine/post.js", "license": "MIT", "uses": ["postprocessing 6.39.6 (Zlib)", "n8ao 2.0.1 (CC0)"] },
+  "props_kenney_furniture_kit": { "license": "CC0 (Kenney)", "files": ["kitchenCabinet", "kitchenSink", "kitchenFridgeLarge", "kitchenCabinetUpper", "kitchenCoffeeMachine", "kitchenMicrowave", "toaster", "tableRound", "chairCushion", "pottedPlant", "trashcan", "plantSmall2", "books"] },
+  "font": { "file": ".claude/skills/claude-3d-animated-shorts/engine/film/Inter-Black.otf", "license": "SIL OFL 1.1 (Inter)" },
+  "procedural_in_v3js": ["room shell, floor and wall textures", "window and outside view", "wall clock", "notice board", "island top", "plate", "donut (two states: whole, bitten)", "newspaper", "mugs", "steam"],
+  "faces": "v3faces.js — original expression drawings",
+  "voice": { "engine": "Piper TTS (local)", "model": "en_US-ryan-high (rhasspy/piper-voices); check the model card's dataset licence before commercial use" },
+  "sound_effects_and_music": "synthesized by make_audio.py (numpy/scipy) using upstream-2d/templates/audio (MIT) and shorts/chicago-hotel-lift/tools/sfxlib.py; no samples"
+}
