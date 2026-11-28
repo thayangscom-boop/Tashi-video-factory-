@@ -1,0 +1,75 @@
+{
+ "note": "Assets used by chicago-v3 (main.js, cast.js, sets.js). Loaded from the installed claude-3d-animated-shorts skill; nothing copied.",
+ "character_rig": {
+  "file": ".claude/skills/claude-3d-animated-shorts/engine/assets/rigs/Xbot.glb",
+  "source": "three.js examples (Mixamo Xbot), fetched by scripts/fetch-assets-cloud.sh",
+  "license": "see three.js examples / Mixamo terms"
+ },
+ "character_builder": {
+  "file": ".claude/skills/claude-3d-animated-shorts/engine/stickrig.js",
+  "license": "MIT (thuann-vn/claude-3d-animated-shorts)"
+ },
+ "post_chain": {
+  "file": ".claude/skills/claude-3d-animated-shorts/engine/post.js",
+  "license": "MIT",
+  "uses": [
+   "postprocessing 6.39.6 (Zlib)",
+   "n8ao 2.0.1 (CC0)"
+  ]
+ },
+ "props_kenney_furniture_kit": {
+  "license": "CC0 (Kenney)",
+  "files": [
+   "desk",
+   "pottedPlant",
+   "coatRackStanding",
+   "chairCushion"
+  ]
+ },
+ "font": {
+  "file": ".claude/skills/claude-3d-animated-shorts/engine/film/Inter-Black.otf",
+  "license": "SIL OFL 1.1 (Inter)"
+ },
+ "procedural_in_v3js": [
+  "room shell, floor and wall textures",
+  "window and outside view",
+  "wall clock",
+  "notice board",
+  "island top",
+  "plate",
+  "donut (two states: whole, bitten)",
+  "newspaper",
+  "mugs",
+  "steam"
+ ],
+ "voice": {
+  "source": "user-supplied voiceover (audio/voiceover.mp3)",
+  "transcription": "faster-whisper small.en (local) for timing only"
+ },
+ "sound_effects_and_music": "synthesized by make_audio.py (numpy/scipy); no samples",
+ "props_kaykit_furniture_bits": {
+  "license": "CC0 (Kay Lousberg)",
+  "files": [
+   "bed_double_A",
+   "cabinet_small",
+   "lamp_table",
+   "rug_oval_A",
+   "pictureframe_large_A",
+   "armchair",
+   "table_medium_long",
+   "chair_A_wood",
+   "shelf_B_large_decorated",
+   "pictureframe_medium"
+  ]
+ },
+ "procedural": [
+  "street, mud, puddles, fill, cobbles, plank walks, rails",
+  "storefronts with painted facades",
+  "Tremont House (original stylised design, instanced windows)",
+  "screw jacks + cribbing (instanced, 360+)",
+  "wagon, easel + plan, lamps, lanterns",
+  "cut-away three-room interior shell",
+  "hats: top hat, bowler, nightcap, bonnet, flat cap"
+ ],
+ "faces": "../v3-test/v3faces.js + extra expressions in cast.js (original)"
+}
